@@ -157,47 +157,52 @@ export default function Home() {
 
       {/* Persistent Floating Bottom Navigation Dock (Visible across Home, Rayos X, and Balde) */}
       {!isCardDetailOpen && (
-        <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-3 py-2 rounded-full bg-[#27442A]/95 text-white backdrop-blur-md border border-[#3E6142] shadow-xl shadow-black/25 flex items-center gap-1.5 sm:gap-2">
-          <button
-            onClick={() => {
-              setActiveScreen("home");
-              setIsCardDetailOpen(false);
-            }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              activeScreen === "home"
-                ? "bg-[#3F6342] text-white shadow-xs"
-                : "text-white/80 hover:text-white hover:bg-white/10"
-            }`}
-          >
-            <HomeIcon className="w-3.5 h-3.5" />
-            <span>Inicio</span>
-          </button>
-
-          <button
-            onClick={() => setActiveScreen("rayos-x")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              activeScreen === "rayos-x"
-                ? "bg-[#3F6342] text-white shadow-xs"
-                : "text-white/80 hover:text-white hover:bg-white/10"
-            }`}
-            title="Rayos X Paca"
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Rayos X</span>
-          </button>
-
-          <button
-            onClick={() => setActiveScreen("balde")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              activeScreen === "balde"
-                ? "bg-[#3F6342] text-white shadow-xs"
-                : "text-white/80 hover:text-white hover:bg-white/10"
-            }`}
-            title="Qué cabe en mi balde"
-          >
-            <Apple className="w-3.5 h-3.5" />
-            <span>Mi Balde</span>
-          </button>
+        <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-2 py-1.5 rounded-full bg-[#27442A]/95 text-white backdrop-blur-md border border-[#3E6142] shadow-xl shadow-black/25 flex items-center gap-1 sm:gap-1.5">
+          {[
+            { id: "home" as const, label: "Inicio", icon: HomeIcon },
+            { id: "rayos-x" as const, label: "Rayos X", icon: Layers },
+            { id: "balde" as const, label: "Mi Balde", icon: Apple },
+          ].map((tab) => {
+            const isActive = activeScreen === tab.id;
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveScreen(tab.id);
+                  setIsCardDetailOpen(false);
+                }}
+                className={`relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                  isActive
+                    ? "text-white"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
+                }`}
+                title={tab.label}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeDockIndicator"
+                    className="absolute inset-0 bg-[#3F6342] rounded-full -z-10 shadow-xs border border-white/15"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
+                <Icon className="w-4 h-4 shrink-0" />
+                <AnimatePresence initial={false}>
+                  {isActive && (
+                    <motion.span
+                      initial={{ opacity: 0, width: 0 }}
+                      animate={{ opacity: 1, width: "auto" }}
+                      exit={{ opacity: 0, width: 0 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="overflow-hidden whitespace-nowrap text-xs font-bold"
+                    >
+                      {tab.label}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </button>
+            );
+          })}
 
           <div className="w-[1px] h-4 bg-white/20 mx-0.5" />
 
