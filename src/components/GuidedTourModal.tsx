@@ -20,8 +20,7 @@ const TOUR_STEPS = [
     subtitle:
       "Aunque por fuera parece una jardinera de hojas secas, aquí adentro hay media tonelada de comida fermentando para convertirse en tierra viva.",
     highlight: "Media tonelada de residuos sin una sola gota de químicos.",
-    image:
-      "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop",
+    image: "/community/comunidad-grupo.jpg",
     actionLabel: "Descubrir el secreto",
   },
   {
@@ -32,8 +31,7 @@ const TOUR_STEPS = [
       "¿Huele a basurero podrido... o huele a tierra de bosque húmedo? Al prensar y pisar la paca, expulsamos todo el aire.",
     highlight:
       "Sin oxígeno no hay pudrición ni moscas: la comida se fermenta igual que el vino o el queso.",
-    image:
-      "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1000&auto=format&fit=crop",
+    image: "/community/tierra-cosecha.jpg",
     actionLabel: "¿Qué hay adentro?",
   },
   {
@@ -44,8 +42,7 @@ const TOUR_STEPS = [
       "Arriba crecen flores. En los bordes, un nido de hojarasca que aísla todo. En el centro, los residuos de cocina. En el fondo, ramas que dejan respirar al suelo.",
     highlight:
       "Biotecnología 100% colombiana, creada en Medellín por el maestro Guillermo Silva.",
-    image:
-      "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1000&auto=format&fit=crop",
+    image: "/community/molde-silva.jpg",
     actionLabel: "¿Cómo puedo participar?",
   },
   {
@@ -56,8 +53,7 @@ const TOUR_STEPS = [
       "Los vecinos traemos un balde con los restos de cocina de la semana, pisamos juntos al ritmo de la música y evitamos que los residuos colapsen el relleno La Pradera.",
     highlight:
       "¡Trae tu balde este domingo a la Calle 38 # 64A-8!",
-    image:
-      "https://images.unsplash.com/photo-1511497584788-87676104235f?q=80&w=1000&auto=format&fit=crop",
+    image: "/community/domingo-actividad.jpg",
     actionLabel: "Explorar toda la web",
   },
 ];

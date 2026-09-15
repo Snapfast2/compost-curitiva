@@ -13,6 +13,7 @@ export interface PacaRecord {
   notes: string;
   tag: string;
   floraTop: string; // qué sembraron encima (jardinera)
+  photoUrl?: string;
 }
 
 export const PACAS_DATA: PacaRecord[] = [
@@ -31,6 +32,7 @@ export const PACAS_DATA: PacaRecord[] = [
     notes: "¡Es la paca que construiremos este próximo domingo a las 9:30 AM! Trae tu balde para inaugurarla.",
     tag: "Próxima Paca",
     floraTop: "Semillas de caléndula y albahaca",
+    photoUrl: "/community/comunidad-grupo.jpg",
   },
   {
     id: "paca-05-guayacan",
@@ -47,6 +49,7 @@ export const PACAS_DATA: PacaRecord[] = [
     notes: "Superó la fase térmica inicial (55°C). Ya brotan los primeros tréboles en la superficie.",
     tag: "Fase Fermentación",
     floraTop: "Trébol blanco silvestre",
+    photoUrl: "/community/pisado-vecina.jpg",
   },
   {
     id: "paca-04-la-ceiba",
@@ -63,6 +66,7 @@ export const PACAS_DATA: PacaRecord[] = [
     notes: "Estructura cúbica perfecta. Se observan larvas de cucarrón reciclador trabajando activamente.",
     tag: "Fase Microbiana",
     floraTop: "Menta y hierbabuena",
+    photoUrl: "/community/molde-silva.jpg",
   },
   {
     id: "paca-03-colibri",
@@ -79,6 +83,7 @@ export const PACAS_DATA: PacaRecord[] = [
     notes: "A solo 2 meses de la cosecha. La temperatura interna ya es ambiente y el olor es de tierra mojada.",
     tag: "Maduración Final",
     floraTop: "Begonias y geranios",
+    photoUrl: "/community/pisado-pison.jpg",
   },
   {
     id: "paca-02-conquistadores",
@@ -95,6 +100,7 @@ export const PACAS_DATA: PacaRecord[] = [
     notes: "Cosecha lista: 152 kg de mantillo de bosque nativo 100% fértil para las jardineras y plantas de los vecinos.",
     tag: "Lista para Cosechar",
     floraTop: "Jardín florido",
+    photoUrl: "/community/tierra-cosecha.jpg",
   },
 ];
 

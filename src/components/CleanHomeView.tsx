@@ -23,14 +23,10 @@ const CARDS = [
     heading: "Ayúdanos a transformar los residuos de la cocina en bosque",
     description:
       "Cada domingo a las 9:30 AM nos reunimos en el parque con nuestros baldes de residuos orgánicos. Mediante la biotecnología de Guillermo Silva, comprimimos la comida en un cubo con hojarasca seca para fermentar al vacío, evitando malos olores y desviando toneladas de basura de La Pradera.",
-    image:
-      "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop",
-    thumb1:
-      "https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=400&auto=format&fit=crop",
-    thumb2:
-      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=400&auto=format&fit=crop",
-    thumb3:
-      "/Imgbase/WhatsApp%20Image%202026-09-04%20at%204.09.34%20PM.jpeg",
+    image: "/community/comunidad-grupo.jpg",
+    thumb1: "/community/domingo-actividad.jpg",
+    thumb2: "/community/pisado-pison.jpg",
+    thumb3: "/community/molde-silva.jpg",
   },
   {
     id: "paca-5",
@@ -40,14 +36,10 @@ const CARDS = [
     heading: "La vida invisible trabajando bajo nuestros pies",
     description:
       "Esta paca superó la fase térmica inicial de 60°C donde se higienizó todo el material orgánico. Ahora miles de microorganismos, hongos del bosque nativo y larvas recicladoras transforman los residuos en mantillo fértil sin generar una sola gota de lixiviados contaminantes.",
-    image:
-      "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1000&auto=format&fit=crop",
-    thumb1:
-      "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=400&auto=format&fit=crop",
-    thumb2:
-      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=400&auto=format&fit=crop",
-    thumb3:
-      "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=400&auto=format&fit=crop",
+    image: "/community/pisado-vecina.jpg",
+    thumb1: "/community/reunion-arboles.jpg",
+    thumb2: "/community/paca-ensamblada.jpg",
+    thumb3: "/community/pisado-pison.jpg",
   },
   {
     id: "paca-2",
@@ -57,14 +49,10 @@ const CARDS = [
     heading: "El oro negro que regresa a las jardineras del barrio",
     description:
       "Tras 6 meses exactos de fermentación e hidratación natural, esta paca se convirtió en 152 kg de mantillo puro de bosque nativo. Los vecinos que aportaron sus baldes pueden reclamar su bolsa de abono para enriquecer sus plantas y huertas caseras.",
-    image:
-      "https://images.unsplash.com/photo-1511497584788-87676104235f?q=80&w=1000&auto=format&fit=crop",
-    thumb1:
-      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=400&auto=format&fit=crop",
-    thumb2:
-      "https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=400&auto=format&fit=crop",
-    thumb3:
-      "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=400&auto=format&fit=crop",
+    image: "/community/tierra-cosecha.jpg",
+    thumb1: "/community/huerta-bancal.jpg",
+    thumb2: "/community/huerta-vecinos.jpg",
+    thumb3: "/community/comunidad-grupo.jpg",
   },
 ];
 
