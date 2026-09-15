@@ -1,101 +1,113 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/Header";
-import { SundayHero } from "@/components/SundayHero";
+import { HomeCarouselView } from "@/components/HomeCarouselView";
 import { PacaRayosX } from "@/components/PacaRayosX";
 import { BucketChecker } from "@/components/BucketChecker";
 import { PacaWall } from "@/components/PacaWall";
 import { ImpactMetrics } from "@/components/ImpactMetrics";
 import { ParkMapCard } from "@/components/ParkMapCard";
 import { PacaRhythmTimer } from "@/components/PacaRhythmTimer";
-import { FloatingDock } from "@/components/FloatingDock";
+import { FloatingDock, NavTab } from "@/components/FloatingDock";
 import { PrintablePosterModal } from "@/components/PrintablePosterModal";
-import { Heart, Sprout, Trees, MessageCircle, ExternalLink } from "lucide-react";
-import { PARK_SUMMARY } from "@/data/pacasData";
 
 export default function Home() {
+  const [currentTab, setCurrentTab] = useState<NavTab>("home");
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
-
-  const handleScrollToMap = () => {
-    const el = document.getElementById("ubicacion");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F8F3E8] text-[#1E271D] pb-24 selection:bg-[#B87339] selection:text-white">
-      {/* Sticky Header */}
+    <div className="min-h-screen bg-[#F8F3E8] text-[#1E271D] pb-24 selection:bg-[#B87339] selection:text-white flex flex-col justify-between">
+      {/* Top Header */}
       <Header
         onOpenPosterModal={() => setIsPosterModalOpen(true)}
-        onOpenMap={handleScrollToMap}
+        onOpenMap={() => setIsMapModalOpen(true)}
       />
 
-      {/* Main Container */}
-      <main className="max-w-4xl mx-auto px-4 py-6 sm:py-8 space-y-12 sm:space-y-16">
-        {/* 1. Sunday Hero & Live Countdown */}
-        <div id="domingo">
-          <SundayHero onOpenMap={handleScrollToMap} />
-        </div>
-
-        {/* 2. Rhythm Trample Timer (Guillermo Silva 3 min dance) */}
-        <PacaRhythmTimer />
-
-        {/* 3. Interactive Rayos X (Park QR Experience) */}
-        <PacaRayosX />
-
-        {/* 4. Bucket Checker ("¿Esto va al balde?") */}
-        <BucketChecker />
-
-        {/* 5. Pacas Wall (Active Pacas & Harvest Timeline) */}
-        <PacaWall />
-
-        {/* 6. Impact Metrics & Household Calculator */}
-        <ImpactMetrics />
-
-        {/* 7. Park Map & Location Details */}
-        <ParkMapCard />
-
-        {/* Community Tribute & Philosophy Footer */}
-        <footer className="pt-8 border-t border-[#E3DAC8] text-center space-y-4">
-          <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#B87339]">
-            <Sprout className="w-4 h-4" />
-            <span>Biotecnología Limpia 100% Colombiana</span>
-          </div>
-
-          <p className="text-xs sm:text-sm text-[#5C6B4A] max-w-xl mx-auto leading-relaxed">
-            Inspirado en la vida y obra del maestro <strong>Guillermo Silva Pérez</strong> (El Mago del Bosque Urbano). Desarrollado para empoderar la iniciativa comunitaria de Mauricio y los vecinos del Parque de las Pacas en Medellín.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-[#7A5835] pt-2">
-            <a
-              href="https://believe.earth/es/guillermo-silva-el-mago-del-bosque-urbano/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#233321] transition-colors inline-flex items-center gap-1"
+      {/* Main Screen Content (Controlled by Tabs) */}
+      <main className="flex-1 max-w-lg mx-auto w-full px-4 py-4 sm:py-6">
+        <AnimatePresence mode="wait">
+          {/* TAB 1: INICIO (El layout idéntico a 'Plant a billion trees') */}
+          {currentTab === "home" && (
+            <motion.div
+              key="tab-home"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25 }}
             >
-              <span>Artículo sobre Guillermo Silva</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-            <span>•</span>
-            <a
-              href={PARK_SUMMARY.whatsappGroup1Url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#233321] transition-colors inline-flex items-center gap-1"
-            >
-              <MessageCircle className="w-3 h-3 text-[#5C6B4A]" />
-              <span>Unirse al Grupo de WhatsApp</span>
-            </a>
-          </div>
+              <HomeCarouselView
+                onOpenMap={() => setIsMapModalOpen(true)}
+                onNavigateToTab={(tab) => setCurrentTab(tab as NavTab)}
+              />
+            </motion.div>
+          )}
 
-          <div className="pt-4 text-[11px] text-[#C4A882]">
-            Parque de las Pacas • Conquistadores, Calle 38 # 64A-8 • Medellín, Colombia
-          </div>
-        </footer>
+          {/* TAB 2: RAYOS X (Modo Parque / QR) */}
+          {currentTab === "rayos-x" && (
+            <motion.div
+              key="tab-rayos-x"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25 }}
+              className="space-y-6 pt-2"
+            >
+              <PacaRayosX />
+            </motion.div>
+          )}
+
+          {/* TAB 3: MI BALDE (Buscador ¿Esto cabe?) */}
+          {currentTab === "balde" && (
+            <motion.div
+              key="tab-balde"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25 }}
+              className="space-y-6 pt-2"
+            >
+              <BucketChecker />
+            </motion.div>
+          )}
+
+          {/* TAB 4: COMUNIDAD & IMPACTO */}
+          {currentTab === "comunidad" && (
+            <motion.div
+              key="tab-comunidad"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25 }}
+              className="space-y-8 pt-2"
+            >
+              <PacaWall />
+              <ImpactMetrics />
+              <PacaRhythmTimer />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
-      {/* Mobile Floating Dock */}
-      <FloatingDock />
+      {/* Floating Bottom Dock (Navegación limpia estilo app nativa) */}
+      <FloatingDock activeTab={currentTab} onSelectTab={setCurrentTab} />
+
+      {/* Map Modal */}
+      {isMapModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl p-5 shadow-2xl border border-[#E3DAC8]">
+            <button
+              onClick={() => setIsMapModalOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-[#EFE7DA] text-[#7A5835] hover:bg-[#C4A882]/40"
+            >
+              ✕
+            </button>
+            <ParkMapCard />
+          </div>
+        </div>
+      )}
 
       {/* Printable Poster Modal with QR */}
       <PrintablePosterModal
