@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Globe, User, Home as HomeIcon, CheckCircle2, Compass } from "lucide-react";
+import { ArrowLeft, MapPin, Globe, User, Home as HomeIcon, CheckCircle2, Compass, MessageCircle } from "lucide-react";
 import confetti from "canvas-confetti";
+import { WhatsAppGroupsModal } from "@/components/WhatsAppGroupsModal";
 
 interface CleanHomeViewProps {
   onOpenMap: () => void;
@@ -16,39 +17,39 @@ interface CleanHomeViewProps {
 
 const CARDS = [
   {
-    id: "paca-6",
-    title: "Paca #6: La Esperanza",
+    id: "paca-342",
+    title: "Paca #342: Próximo Domingo",
     subtitle: "Domingo 9:30 AM • Calle 38 # 64A-8",
-    tagline: "El ritual del domingo",
-    heading: "Ayúdanos a transformar los residuos de la cocina en bosque",
+    tagline: "Hito comunitario • +341 pacas",
+    heading: "La paca que construiremos juntos este domingo",
     description:
-      "Cada domingo a las 9:30 AM nos reunimos en el parque con nuestros baldes de residuos orgánicos. Mediante la biotecnología de Guillermo Silva, comprimimos la comida en un cubo con hojarasca seca para fermentar al vacío, evitando malos olores y desviando toneladas de basura de La Pradera.",
+      "El pasado 13 de septiembre alcanzamos la paca #341 en el Parque de las Pacas. Este domingo a las 9:30 AM fabricaremos juntos la #342. Trae tu balde con cáscaras y sobras de cocina para prensarlas con hojarasca seca, evitando malos olores y desviando toneladas de basura de La Pradera.",
     image: "/community/comunidad-grupo.jpg",
     thumb1: "/community/domingo-actividad.jpg",
     thumb2: "/community/pisado-pison.jpg",
     thumb3: "/community/molde-silva.jpg",
   },
   {
-    id: "paca-5",
-    title: "Paca #5: Guayacán",
-    subtitle: "En maduración activa • Día 23",
-    tagline: "Fase microbiológica",
-    heading: "La vida invisible trabajando bajo nuestros pies",
+    id: "paca-341",
+    title: "Paca #341: Recién Prensada",
+    subtitle: "13 de Septiembre • 2 días activa",
+    tagline: "Fase térmica activa (60°C)",
+    heading: "La última paca del parque higienizándose al calor natural",
     description:
-      "Esta paca superó la fase térmica inicial de 60°C donde se higienizó todo el material orgánico. Ahora miles de microorganismos, hongos del bosque nativo y larvas recicladoras transforman los residuos en mantillo fértil sin generar una sola gota de lixiviados contaminantes.",
+      "Armada el domingo 13 de septiembre por los vecinos del barrio. Dentro del cubo, los microorganismos fermentadores elevan la temperatura hasta 60°C de forma natural, destruyendo cualquier patógeno e iniciando la descomposición biológica sin moscas ni malos olores.",
     image: "/community/pisado-vecina.jpg",
     thumb1: "/community/reunion-arboles.jpg",
     thumb2: "/community/paca-ensamblada.jpg",
     thumb3: "/community/pisado-pison.jpg",
   },
   {
-    id: "paca-2",
-    title: "Paca #2: Conquistadores",
-    subtitle: "¡Cosecha de abono lista! • 152 kg",
+    id: "cosecha-abono",
+    title: "Cosecha de Abono Vivo",
+    subtitle: "+50 Toneladas cosechadas en el barrio",
     tagline: "El ciclo cerrado",
-    heading: "El oro negro que regresa a las jardineras del barrio",
+    heading: "El oro negro que regresa a las jardineras y la huerta",
     description:
-      "Tras 6 meses exactos de fermentación e hidratación natural, esta paca se convirtió en 152 kg de mantillo puro de bosque nativo. Los vecinos que aportaron sus baldes pueden reclamar su bolsa de abono para enriquecer sus plantas y huertas caseras.",
+      "A lo largo de más de 341 pacas construidas en el barrio, hemos producido más de 50 toneladas de mantillo vivo. Los vecinos que traen su balde pueden llevar periódicamente abono para sus plantas, árboles del parque y la huerta comunitaria.",
     image: "/community/tierra-cosecha.jpg",
     thumb1: "/community/huerta-bancal.jpg",
     thumb2: "/community/huerta-vecinos.jpg",
@@ -66,6 +67,7 @@ export function CleanHomeView({
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [selectedCard, setSelectedCard] = useState<(typeof CARDS)[0] | null>(null);
   const [hasPledged, setHasPledged] = useState(false);
+  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
 
   const activeCard = CARDS[activeCardIndex];
 
@@ -99,9 +101,10 @@ export function CleanHomeView({
             {/* Top Typography Header */}
             <div className="space-y-1 pt-2 px-1">
               <div className="flex items-center justify-between">
-                <p className="text-[11px] uppercase tracking-wider font-semibold text-[#5F7B61]">
-                  Biotecnología limpia • Medellín
-                </p>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E2ECE0] text-[#244327] text-[10px] font-bold border border-[#CFDFCC]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                  <span>341 pacas construidas</span>
+                </div>
                 {onOpenTour && (
                   <button
                     onClick={onOpenTour}
@@ -117,16 +120,15 @@ export function CleanHomeView({
               </h1>
               <div className="flex items-center justify-between pt-5 pb-1">
                 <h2 className="text-[15px] font-semibold text-[#3B543E]">
-                  Nuestras pacas activas
+                  Pacas activas & Cosecha
                 </h2>
-                {onOpenTour && (
-                  <button
-                    onClick={onOpenTour}
-                    className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#EAE3D5] text-[#2E4A32] hover:bg-[#DCD3C3] transition-colors"
-                  >
-                    ¿Qué es este cubo?
-                  </button>
-                )}
+                <button
+                  onClick={() => setIsWhatsAppModalOpen(true)}
+                  className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#167035] border border-[#25D366]/30 transition-colors"
+                >
+                  <MessageCircle className="w-3 h-3 text-[#25D366]" />
+                  <span>2 Grupos WhatsApp</span>
+                </button>
               </div>
             </div>
 
@@ -315,7 +317,7 @@ export function CleanHomeView({
               </div>
 
               {/* Bottom Large CTA Pill Button (Centered full width inside sheet) */}
-              <div className="pt-2">
+              <div className="pt-2 space-y-2">
                 <button
                   onClick={handlePledge}
                   disabled={hasPledged}
@@ -333,6 +335,14 @@ export function CleanHomeView({
                   ) : (
                     <span>Llevar mi balde este domingo</span>
                   )}
+                </button>
+
+                <button
+                  onClick={() => setIsWhatsAppModalOpen(true)}
+                  className="w-full py-3 rounded-full bg-[#E5ECE0] hover:bg-[#D6E3D0] text-[#27442A] text-xs font-bold transition-colors flex items-center justify-center gap-2 border border-[#C4D8C1]"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  <span>Unirse al WhatsApp del barrio (2 grupos)</span>
                 </button>
               </div>
             </div>
@@ -377,8 +387,22 @@ export function CleanHomeView({
           >
             <User className="w-4 h-4" />
           </button>
+
+          <button
+            onClick={() => setIsWhatsAppModalOpen(true)}
+            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+            title="Grupos de WhatsApp de Vecinos"
+          >
+            <MessageCircle className="w-4 h-4 text-[#25D366]" />
+          </button>
         </nav>
       )}
+
+      {/* WhatsApp Community Groups Modal */}
+      <WhatsAppGroupsModal
+        isOpen={isWhatsAppModalOpen}
+        onClose={() => setIsWhatsAppModalOpen(false)}
+      />
     </div>
   );
 }

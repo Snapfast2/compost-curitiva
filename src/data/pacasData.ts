@@ -105,12 +105,14 @@ export const PACAS_DATA: PacaRecord[] = [
 ];
 
 export const PARK_SUMMARY = {
-  totalPacasHistoric: 8,
-  totalOrganicDivertedKg: 2150, // kg salvados de La Pradera
-  totalDryMatterKg: 2100,
-  totalCompostHarvestedKg: 1250,
-  familiesParticipating: 34,
-  litersLeachatePrevented: 1350,
+  totalPacasHistoric: 341,
+  lastPacaDate: "13 de septiembre de 2026",
+  nextPacaNumber: 342,
+  totalOrganicDivertedKg: 85250, // más de 85 toneladas de comida
+  totalDryMatterKg: 85250, // 85 toneladas de hojarasca
+  totalCompostHarvestedKg: 51150, // más de 51 toneladas de abono
+  familiesParticipating: 75,
+  litersLeachatePrevented: 51000,
   parkAddress: "Calle 38 # 64A-8, Conquistadores, Medellín",
   sundayMeetingTime: "9:30 AM",
   whatsappGroup1Url: "https://chat.whatsapp.com/sample-compost-vecinos-1",
