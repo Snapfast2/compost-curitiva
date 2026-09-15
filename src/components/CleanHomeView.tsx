@@ -319,7 +319,7 @@ export function CleanHomeView({
                   {hasPledged ? (
                     <>
                       <CheckCircle2 className="w-4 h-4 text-[#A1C9A5]" />
-                      <span>¡Balde confirmado para el domingo! 🎉</span>
+                      <span>Balde confirmado para el domingo</span>
                     </>
                   ) : (
                     <span>Llevar mi balde este domingo</span>

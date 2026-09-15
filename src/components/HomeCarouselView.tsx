@@ -14,6 +14,8 @@ import {
   Calendar,
   Flower2,
   CheckCircle2,
+  Sprout,
+  Award,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { PACAS_DATA, PacaRecord, PARK_SUMMARY } from "@/data/pacasData";
@@ -103,8 +105,8 @@ export function HomeCarouselView({ onOpenMap, onNavigateToTab }: HomeCarouselVie
 
                 {/* Card Center: Visual Focus */}
                 <div className="relative z-20 my-auto text-center space-y-2">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-3xl bg-[#5C6B4A]/40 border border-[#9CAF88]/30 flex items-center justify-center text-4xl sm:text-5xl shadow-inner shadow-black/30 group-hover:scale-105 transition-transform duration-300">
-                    {activeSlide === 0 ? "🪣" : activeSlide === 4 ? "🎉" : "🌱"}
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-3xl bg-[#5C6B4A]/40 border border-[#9CAF88]/30 flex items-center justify-center text-[#E5ECE0] shadow-inner shadow-black/30 group-hover:scale-105 transition-transform duration-300">
+                    {activeSlide === 0 ? <Sparkles className="w-8 h-8 text-[#C4A882]" /> : activeSlide === 4 ? <Award className="w-8 h-8 text-[#C4A882]" /> : <Sprout className="w-8 h-8 text-[#9CAF88]" />}
                   </div>
                   <div className="inline-flex items-center gap-1.5 text-xs text-[#9CAF88] font-bold">
                     <Flower2 className="w-3.5 h-3.5" />
@@ -160,8 +162,8 @@ export function HomeCarouselView({ onOpenMap, onNavigateToTab }: HomeCarouselVie
             {/* Quick Call to Action Bar */}
             <div className="p-4 rounded-3xl bg-white border border-[#E3DAC8] shadow-xs flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-2xl bg-[#EFE7DA] text-[#B87339] flex items-center justify-center text-lg">
-                  📍
+                <div className="w-10 h-10 rounded-2xl bg-[#EFE7DA] text-[#B87339] flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-[#B87339]" />
                 </div>
                 <div>
                   <p className="text-xs font-bold text-[#233321]">
@@ -212,8 +214,8 @@ export function HomeCarouselView({ onOpenMap, onNavigateToTab }: HomeCarouselVie
 
             {/* Hero Visual Area of the Selected Paca */}
             <div className="relative rounded-[32px] overflow-hidden bg-[#233321] text-white p-6 sm:p-8 min-h-[220px] flex flex-col justify-end border border-[#3E4B31] shadow-md">
-              <div className="absolute top-4 right-4 text-4xl opacity-80">
-                🌱
+              <div className="absolute top-4 right-4 opacity-80">
+                <Sprout className="w-10 h-10 text-[#9CAF88]" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#9CAF88]">
                 {detailPaca.tag}
@@ -298,11 +300,11 @@ export function HomeCarouselView({ onOpenMap, onNavigateToTab }: HomeCarouselVie
                   {hasPledged ? (
                     <>
                       <CheckCircle2 className="w-5 h-5 text-[#9CAF88]" />
-                      <span>¡Balde confirmado para este domingo! 🎉</span>
+                      <span>¡Balde confirmado para este domingo!</span>
                     </>
                   ) : (
                     <>
-                      <span>🪣</span>
+                      <Sparkles className="w-4 h-4 text-white" />
                       <span>Llevaré mi balde este domingo 9:30 AM</span>
                     </>
                   )}

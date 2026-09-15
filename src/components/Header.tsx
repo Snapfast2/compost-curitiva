@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sparkles, QrCode, MapPin, MessageCircle } from "lucide-react";
+import { Sparkles, QrCode, MapPin, MessageCircle, Sprout } from "lucide-react";
 
 interface HeaderProps {
   onOpenPosterModal: () => void;
@@ -15,7 +15,7 @@ export function Header({ onOpenPosterModal, onOpenMap }: HeaderProps) {
         {/* Brand & Location */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#5C6B4A] flex items-center justify-center text-white shadow-sm shadow-[#5C6B4A]/30">
-            <span className="text-xl">🌱</span>
+            <Sprout className="w-5 h-5 text-white" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">

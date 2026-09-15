@@ -58,10 +58,10 @@ export function ParkMapCard() {
 
             <div className="p-3.5 rounded-2xl bg-[#F8F3E8] border border-[#E3DAC8] text-xs text-[#7A5835] space-y-1">
               <p>
-                👟 <strong>Recomendación:</strong> Ven con calzado cómodo para saltar sobre la paca (tenis o botas).
+                <strong>Recomendación:</strong> Ven con calzado cómodo para saltar sobre la paca (tenis o botas).
               </p>
               <p>
-                🪣 <strong>Aseo de baldes:</strong> En el parque tenemos punto de agua para enjuagar tu balde antes de regresar a casa.
+                <strong>Aseo de baldes:</strong> En el parque tenemos punto de agua para enjuagar tu balde antes de regresar a casa.
               </p>
             </div>
           </div>

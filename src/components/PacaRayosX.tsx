@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import {
   Layers,
-  Sparkles,
   Info,
-  CheckCircle2,
   Wind,
-  ShieldCheck,
-  Flame,
   TreePine,
+  Flower2,
+  Utensils,
+  Leaf,
+  ShieldCheck,
 } from "lucide-react";
 
 interface LayerInfo {
@@ -23,7 +23,7 @@ interface LayerInfo {
   materials: string;
   functionDesc: string;
   silvaSecret: string;
-  icon: string;
+  iconName: string;
 }
 
 const PACA_LAYERS: LayerInfo[] = [
@@ -38,7 +38,7 @@ const PACA_LAYERS: LayerInfo[] = [
     materials: "Hojarasca seca comprimida, tierra de bosque y plantas florales.",
     functionDesc: "Sella herméticamente la paca contra la lluvia directa, evita escape de gases y sirve como huerta o jardinera desde el primer mes.",
     silvaSecret: "«Al mes la paca se cubre de vegetación natural. Las raíces de las flores aceleran la descomposición sana y decoran el parque.»",
-    icon: "🌸",
+    iconName: "Flower2",
   },
   {
     id: "layer-3",
@@ -51,7 +51,7 @@ const PACA_LAYERS: LayerInfo[] = [
     materials: "Cáscaras de frutas, verduras, comida cocida, carnes, huesos pequeños, café y estiércol acondicionado.",
     functionDesc: "Aquí ocurre la fermentación alcohólica anaeróbica. Al estar compactado al vacío y sin aire, los microorganismos transforman la comida en humus fértil en vez de podrirse.",
     silvaSecret: "«En una paca de 1 m³ entran 250 kg de comida y 250 kg de hojas. Se alcanzan hasta 60°C en el centro, higienizando todo en menos de 24 horas.»",
-    icon: "🍲",
+    iconName: "Utensils",
   },
   {
     id: "layer-2",
@@ -64,7 +64,7 @@ const PACA_LAYERS: LayerInfo[] = [
     materials: "Hojarasca seca o verde arrimada contra las tablas del molde.",
     functionDesc: "Crea una muralla protectora que envuelve los alimentos para que ningún desperdicio quede expuesto a la vista, ni a perros, ratones o moscas.",
     silvaSecret: "«El nido es el secreto de la limpieza. Cuando retiras el cajón de madera, solo se ven hojas secas y no la comida del centro.»",
-    icon: "🍂",
+    iconName: "Leaf",
   },
   {
     id: "layer-1",
@@ -77,9 +77,24 @@ const PACA_LAYERS: LayerInfo[] = [
     materials: "Palos, ramas gruesas y chamizas asentadas en el piso en un solo sentido.",
     functionDesc: "Aísla la paca del exceso de humedad del suelo, permite el ingreso de macroorganismos del suelo (lombrices, escarabajos) y drena cualquier exceso de agua.",
     silvaSecret: "«Paso 1 del manual: ramas bien acomodadas al suelo natural. A los 6 meses algunas ramas aún tendrán consistencia y pasan como semilla a la siguiente paca.»",
-    icon: "🪵",
+    iconName: "TreePine",
   },
 ];
+
+function getLayerIcon(iconName: string) {
+  switch (iconName) {
+    case "Flower2":
+      return <Flower2 className="w-5 h-5 text-[#3E4B31]" />;
+    case "Utensils":
+      return <Utensils className="w-5 h-5 text-[#915422]" />;
+    case "Leaf":
+      return <Leaf className="w-5 h-5 text-[#5C6B4A]" />;
+    case "TreePine":
+      return <TreePine className="w-5 h-5 text-[#7A5835]" />;
+    default:
+      return <Layers className="w-5 h-5 text-[#5C6B4A]" />;
+  }
+}
 
 export function PacaRayosX() {
   const [selectedLayerId, setSelectedLayerId] = useState<string>("layer-3");
@@ -131,7 +146,9 @@ export function PacaRayosX() {
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="text-xl sm:text-2xl">{layer.icon}</span>
+                    <div className="p-2 rounded-xl bg-white/70 border border-[#E3DAC8]">
+                      {getLayerIcon(layer.iconName)}
+                    </div>
                     <div>
                       <p className={`text-xs font-bold ${layer.color}`}>
                         {layer.name}
@@ -162,8 +179,10 @@ export function PacaRayosX() {
         <div className="lg:col-span-7 flex flex-col gap-4">
           <div className="bg-white rounded-3xl p-6 border border-[#E3DAC8] shadow-sm space-y-4">
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">{activeLayer.icon}</span>
+              <div className="flex items-center gap-2.5">
+                <div className="p-2.5 rounded-2xl bg-[#F8F3E8] border border-[#E3DAC8]">
+                  {getLayerIcon(activeLayer.iconName)}
+                </div>
                 <div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#B87339]">
                     {activeLayer.badge}
@@ -192,7 +211,7 @@ export function PacaRayosX() {
             </div>
           </div>
 
-          {/* El Reto del Olfato Card (Inspired by Pinterest clean cards) */}
+          {/* El Reto del Olfato Card */}
           <div className="bg-[#233321] text-[#F8F3E8] rounded-3xl p-5 sm:p-6 border border-[#3E4B31] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="space-y-1 text-center sm:text-left">
               <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs font-bold text-[#9CAF88] uppercase tracking-wider">
@@ -212,7 +231,7 @@ export function PacaRayosX() {
               className="shrink-0 px-4 py-2.5 rounded-full bg-[#5C6B4A] hover:bg-[#3E4B31] text-white font-bold text-xs transition-all flex items-center gap-1.5 shadow-xs"
             >
               <TreePine className="w-4 h-4 text-[#9CAF88]" />
-              <span>{smellTested ? "Huele a bosque húmedo 🌲" : "Hacer el reto del olfato"}</span>
+              <span>{smellTested ? "Huele a bosque húmedo" : "Hacer el reto del olfato"}</span>
             </button>
           </div>
         </div>

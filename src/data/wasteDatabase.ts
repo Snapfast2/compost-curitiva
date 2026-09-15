@@ -4,7 +4,7 @@ export interface WasteItem {
   category: "cocina" | "jardin" | "mascotas" | "prohibido";
   allowed: boolean;
   silvaAdvice: string;
-  icon: string;
+  iconName: string;
   tag: string;
   badgeColor?: string;
 }
@@ -17,7 +17,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "cocina",
     allowed: true,
     silvaAdvice: "Ideales para el centro del nido. No necesitas picarlas; la fermentación y los insectos recicladores las descomponen.",
-    icon: "🍌",
+    iconName: "Apple",
     tag: "Frutas",
   },
   {
@@ -25,8 +25,8 @@ export const WASTE_DATABASE: WasteItem[] = [
     name: "Cítricos (naranjas, limones, piña)",
     category: "cocina",
     allowed: true,
-    silvaAdvice: "¡En la paca Silva SÍ van! A diferencia de las lombrices, los microorganismos y hongos de la paca procesan los cítricos sin problema.",
-    icon: "🍊",
+    silvaAdvice: "En la paca Silva sí van. A diferencia del lombricultivo, los microorganismos y hongos de la paca procesan los cítricos sin problema.",
+    iconName: "Sun",
     tag: "Cítricos",
   },
   {
@@ -35,7 +35,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "cocina",
     allowed: true,
     silvaAdvice: "Aportan estructura y materia leñosa lenta. Tardarán más tiempo, pero al cosechar a los 6 meses enriquecen el mantillo.",
-    icon: "🥑",
+    iconName: "CircleDot",
     tag: "Semillas",
   },
   {
@@ -44,7 +44,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "cocina",
     allowed: true,
     silvaAdvice: "Excelente fuente de nitrógeno y carbono. El filtro de papel sin blanquear se descompone rápidamente.",
-    icon: "☕",
+    iconName: "Coffee",
     tag: "Café",
   },
   {
@@ -53,7 +53,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "cocina",
     allowed: true,
     silvaAdvice: "Aportan calcio mineral al compost. Si puedes triturarlas un poco con la mano antes de echarlas, se integran más rápido.",
-    icon: "🥚",
+    iconName: "Egg",
     tag: "Minerales",
   },
   {
@@ -61,8 +61,8 @@ export const WASTE_DATABASE: WasteItem[] = [
     name: "Comida cocida (arroz, fríjoles, pastas, verduras)",
     category: "cocina",
     allowed: true,
-    silvaAdvice: "¡Permitido en la paca Silva! Importante: escurre los caldos/líquidos en el lavaplatos antes de echarlos al balde.",
-    icon: "🍲",
+    silvaAdvice: "Permitido en la paca Silva. Importante: escurre los caldos y líquidos en el sifón antes de echarlos al balde.",
+    iconName: "Utensils",
     tag: "Cocidos",
   },
   {
@@ -71,7 +71,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "cocina",
     allowed: true,
     silvaAdvice: "Gran aporte proteico. Guillermo Silva demostró que al prensarse en el nido central y limitar el oxígeno, no generan moscas ni olor.",
-    icon: "🍗",
+    iconName: "Flame",
     tag: "Cárnicos",
   },
   {
@@ -80,7 +80,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "cocina",
     allowed: true,
     silvaAdvice: "Se fermentan fácilmente enriqueciendo la flora bacteriana. Colócalos en el centro del nido bien cubiertos.",
-    icon: "🍞",
+    iconName: "Wheat",
     tag: "Harinas",
   },
 
@@ -91,7 +91,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "jardin",
     allowed: true,
     silvaAdvice: "El pilar de la PDS. Se requiere igual peso de hojarasca que de cocina (relación 1:1). Sirve para el nido perimetral y la cobertura.",
-    icon: "🍂",
+    iconName: "Leaf",
     tag: "Materia Seca",
   },
   {
@@ -100,16 +100,16 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "jardin",
     allowed: true,
     silvaAdvice: "Paso 1 del manual: se colocan al fondo en un solo sentido para drenar excesos de agua y aislar el bloque del piso húmedo.",
-    icon: "🪵",
+    iconName: "TreePine",
     tag: "Drenaje",
   },
   {
     id: "pasto-verde",
-    name: "Césped / hierba verde recién podada",
+    name: "Césped y hierba verde recién podada",
     category: "jardin",
     allowed: true,
     silvaAdvice: "Excelente material para complementar el nido. Písala bien para compactar el volumen de aire.",
-    icon: "🌱",
+    iconName: "Sprout",
     tag: "Verde",
   },
   {
@@ -117,8 +117,8 @@ export const WASTE_DATABASE: WasteItem[] = [
     name: "Aserrín o viruta de madera natural (sin pintar)",
     category: "jardin",
     allowed: true,
-    silvaAdvice: "Oro puro cuando la hojarasca escasea. Úsalo también al fondo de tu balde en la cocina para absorber humedad.",
-    icon: "🪵",
+    silvaAdvice: "Elemento clave cuando la hojarasca escasea. Úsalo también al fondo de tu balde en la cocina para absorber humedad.",
+    iconName: "Layers",
     tag: "Seco",
   },
   {
@@ -127,7 +127,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "jardin",
     allowed: true,
     silvaAdvice: "Papel picado o toallas sin tintas plásticas son celulosa digestible que ayuda a balancear la humedad.",
-    icon: "🧻",
+    iconName: "FileText",
     tag: "Papel",
   },
 
@@ -138,7 +138,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "mascotas",
     allowed: true,
     silvaAdvice: "Página 4 del manual: Almacenar en caneca hermética con aserrín o tierra al fondo. La fermentación a 60°C higieniza el material.",
-    icon: "🐕",
+    iconName: "Dog",
     tag: "Mascotas",
   },
   {
@@ -147,27 +147,27 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "mascotas",
     allowed: true,
     silvaAdvice: "Guillermo Silva indica que se puede incorporar al centro de la paca cubriendo bien con hojarasca y prensando a fondo.",
-    icon: "🐈",
+    iconName: "Cat",
     tag: "Mascotas",
   },
 
   // Prohibidos
   {
     id: "stickers-fruta",
-    name: "Calcomanías / stickers de las frutas",
+    name: "Calcomanías y stickers de las frutas",
     category: "prohibido",
     allowed: false,
-    silvaAdvice: "¡El error más común! Son de vinilo/plástico y nunca se degradan; contaminan el abono final con microplásticos. Retíralas siempre.",
-    icon: "🏷️",
-    tag: "¡Quítalos!",
+    silvaAdvice: "Son de vinilo plástico y nunca se degradan; contaminan el abono final con microplásticos. Retíralas siempre.",
+    iconName: "Tag",
+    tag: "Retirar",
   },
   {
     id: "bolsas-plasticas",
-    name: "Bolsas plásticas (incluso las llamadas 'biodegradables')",
+    name: "Bolsas plásticas (incluso biodegradables)",
     category: "prohibido",
     allowed: false,
     silvaAdvice: "El balde se vacía directo a la paca. Ningún plástico debe ingresar porque bloquea los microorganismos y arruina la cosecha.",
-    icon: "🛍️",
+    iconName: "ShoppingBag",
     tag: "Prohibido",
   },
   {
@@ -176,7 +176,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "prohibido",
     allowed: false,
     silvaAdvice: "Peligroso para los vecinos que pisan la paca y arruina el suelo para las plantas y niños del parque.",
-    icon: "🥫",
+    iconName: "Trash2",
     tag: "Peligroso",
   },
   {
@@ -185,7 +185,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "prohibido",
     allowed: false,
     silvaAdvice: "Matan la vida microbiológica (hongos, bacterias, lombrices y larvas recicladoras) que hacen posible la paca.",
-    icon: "🧪",
+    iconName: "FlaskConical",
     tag: "Tóxico",
   },
   {
@@ -194,7 +194,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "prohibido",
     allowed: false,
     silvaAdvice: "Tienen acetato de celulosa plástico y nicotina tóxica concentrada. Van a la basura ordinaria.",
-    icon: "🚬",
+    iconName: "Cigarette",
     tag: "Prohibido",
   },
   {
@@ -203,7 +203,7 @@ export const WASTE_DATABASE: WasteItem[] = [
     category: "prohibido",
     allowed: false,
     silvaAdvice: "Pequeñas sobras de comida grasosa sí van, pero litros de aceite frito saturan el nido. Llévalo a puntos limpios de aceite.",
-    icon: "🛢️",
-    tag: "Llevar a punto limpio",
+    iconName: "Droplets",
+    tag: "Punto limpio",
   }
 ];

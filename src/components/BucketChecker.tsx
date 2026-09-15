@@ -6,17 +6,85 @@ import {
   CheckCircle2,
   XCircle,
   Sparkles,
-  HelpCircle,
   ChefHat,
   Trees,
   Dog,
   Ban,
   X,
   Lightbulb,
+  Apple,
+  Sun,
+  CircleDot,
+  Coffee,
+  Egg,
+  Utensils,
+  Flame,
+  Wheat,
+  Leaf,
+  TreePine,
+  Sprout,
+  Layers,
+  FileText,
+  Cat,
+  Tag,
+  ShoppingBag,
+  Trash2,
+  FlaskConical,
+  Cigarette,
+  Droplets,
 } from "lucide-react";
 import { WASTE_DATABASE, WasteItem } from "@/data/wasteDatabase";
 
 type CategoryFilter = "todos" | "cocina" | "jardin" | "mascotas" | "prohibido";
+
+function getWasteIcon(iconName: string) {
+  switch (iconName) {
+    case "Apple":
+      return <Apple className="w-5 h-5 text-[#5C6B4A]" />;
+    case "Sun":
+      return <Sun className="w-5 h-5 text-[#B87339]" />;
+    case "CircleDot":
+      return <CircleDot className="w-5 h-5 text-[#5C6B4A]" />;
+    case "Coffee":
+      return <Coffee className="w-5 h-5 text-[#915422]" />;
+    case "Egg":
+      return <Egg className="w-5 h-5 text-[#C4A882]" />;
+    case "Utensils":
+      return <Utensils className="w-5 h-5 text-[#5C6B4A]" />;
+    case "Flame":
+      return <Flame className="w-5 h-5 text-[#B87339]" />;
+    case "Wheat":
+      return <Wheat className="w-5 h-5 text-[#C4A882]" />;
+    case "Leaf":
+      return <Leaf className="w-5 h-5 text-[#5C6B4A]" />;
+    case "TreePine":
+      return <TreePine className="w-5 h-5 text-[#3E4B31]" />;
+    case "Sprout":
+      return <Sprout className="w-5 h-5 text-[#5C6B4A]" />;
+    case "Layers":
+      return <Layers className="w-5 h-5 text-[#C4A882]" />;
+    case "FileText":
+      return <FileText className="w-5 h-5 text-[#7A5835]" />;
+    case "Dog":
+      return <Dog className="w-5 h-5 text-[#5C6B4A]" />;
+    case "Cat":
+      return <Cat className="w-5 h-5 text-[#5C6B4A]" />;
+    case "Tag":
+      return <Tag className="w-5 h-5 text-red-600" />;
+    case "ShoppingBag":
+      return <ShoppingBag className="w-5 h-5 text-red-600" />;
+    case "Trash2":
+      return <Trash2 className="w-5 h-5 text-red-600" />;
+    case "FlaskConical":
+      return <FlaskConical className="w-5 h-5 text-red-600" />;
+    case "Cigarette":
+      return <Cigarette className="w-5 h-5 text-red-600" />;
+    case "Droplets":
+      return <Droplets className="w-5 h-5 text-red-600" />;
+    default:
+      return <Leaf className="w-5 h-5 text-[#5C6B4A]" />;
+  }
+}
 
 export function BucketChecker() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,12 +116,12 @@ export function BucketChecker() {
             ¿Esto cabe en mi balde?
           </h3>
           <p className="text-sm text-[#5C6B4A] mt-1 max-w-xl">
-            Escribe cualquier residuo para saber si es apto según el manual de Guillermo Silva. ¡Te sorprenderá todo lo que sí se puede!
+            Escribe cualquier residuo para saber si es apto según el manual de Guillermo Silva.
           </p>
         </div>
       </div>
 
-      {/* Search Input Bar (Inspired by Image 4 search pill) */}
+      {/* Search Input Bar */}
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#5C6B4A]">
           <Search className="w-5 h-5" />
@@ -75,7 +143,7 @@ export function BucketChecker() {
         )}
       </div>
 
-      {/* Category Filter Chips (Inspired by Image 3 categories) */}
+      {/* Category Filter Chips */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
         <button
           onClick={() => setSelectedCategory("todos")}
@@ -129,11 +197,11 @@ export function BucketChecker() {
           }`}
         >
           <Ban className="w-3.5 h-3.5" />
-          <span>🚫 Prohibidos</span>
+          <span>Prohibidos</span>
         </button>
       </div>
 
-      {/* Waste Items Grid (Inspired by Image 4 fresh food card layout) */}
+      {/* Waste Items Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredItems.map((item) => (
           <div
@@ -145,21 +213,21 @@ export function BucketChecker() {
             }`}
           >
             <div>
-              {/* Card Top: Emoji & Status Badge */}
+              {/* Card Top: Lucide Icon & Status Badge */}
               <div className="flex items-center justify-between gap-2 mb-2.5">
-                <span className="text-3xl p-2 rounded-2xl bg-[#F8F3E8] border border-[#E3DAC8]">
-                  {item.icon}
-                </span>
+                <div className="p-2.5 rounded-2xl bg-[#F8F3E8] border border-[#E3DAC8]">
+                  {getWasteIcon(item.iconName)}
+                </div>
 
                 {item.allowed ? (
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E5ECE0] text-[#3E4B31] text-xs font-bold">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#5C6B4A]" />
-                    <span>¡SÍ va!</span>
+                    <span>Permitido</span>
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">
                     <XCircle className="w-3.5 h-3.5 text-red-600" />
-                    <span>No echar</span>
+                    <span>No permitido</span>
                   </span>
                 )}
               </div>
@@ -187,7 +255,7 @@ export function BucketChecker() {
             No encontramos &ldquo;{searchTerm}&rdquo; en la lista.
           </p>
           <p className="text-xs mt-1 text-[#C4A882]">
-            Regla de oro de Guillermo Silva: si es materia orgánica natural (vegetal o animal), ¡va a la paca! Solo evita plásticos y químicos.
+            Regla de Guillermo Silva: si es materia orgánica natural vegetal o animal, va a la paca. Solo evita plásticos y químicos.
           </p>
         </div>
       )}

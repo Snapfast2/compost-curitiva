@@ -98,8 +98,20 @@ export function PacaRhythmTimer() {
               <span className="text-2xl font-black tracking-tight text-white font-mono">
                 {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
               </span>
-              <span className="text-[10px] text-[#9CAF88] uppercase tracking-wider font-bold">
-                {isActive ? "¡Pisando! 👟" : secondsLeft === 0 ? "¡Listo! 🎉" : "3 Minutos"}
+              <span className="text-[10px] text-[#9CAF88] uppercase tracking-wider font-bold inline-flex items-center justify-center gap-1">
+                {isActive ? (
+                  <>
+                    <span>¡Pisando!</span>
+                    <Footprints className="w-3 h-3 text-[#C4A882]" />
+                  </>
+                ) : secondsLeft === 0 ? (
+                  <>
+                    <span>¡Listo!</span>
+                    <Sparkles className="w-3 h-3 text-[#C4A882]" />
+                  </>
+                ) : (
+                  "3 Minutos"
+                )}
               </span>
             </div>
           </div>

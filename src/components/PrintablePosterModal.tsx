@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { X, Printer, QrCode, Sparkles, MapPin, Clock, Download } from "lucide-react";
+import { X, Printer, QrCode, Sparkles, MapPin, Clock, Download, Check, Ban } from "lucide-react";
 
 interface PrintablePosterModalProps {
   isOpen: boolean;
@@ -94,8 +94,9 @@ export function PrintablePosterModal({ isOpen, onClose }: PrintablePosterModalPr
                 <rect x="18" y="74" width="8" height="8" fill="#233321" />
 
                 {/* Center eco icon badge */}
-                <circle cx="50" cy="50" r="12" fill="#5C6B4A" />
-                <text x="50" y="55" fontSize="11" textAnchor="middle" fill="#FFFFFF">🌱</text>
+                <circle cx="50" cy="50" r="11" fill="#2E4A32" />
+                <path d="M50 43 C45 44 43 49 44 54 C48 54 54 52 56 46 C56 43 53 43 50 43 Z" fill="#E5ECE0" />
+                <path d="M46 51 C48 49 50 47 53 45" stroke="#2E4A32" strokeWidth="1" strokeLinecap="round" />
 
                 {/* Pixel modules */}
                 <rect x="42" y="12" width="6" height="6" fill="#233321" />
@@ -150,13 +151,15 @@ export function PrintablePosterModal({ isOpen, onClose }: PrintablePosterModalPr
           </div>
 
           {/* Golden Rules Footer */}
-          <div className="w-full text-xs text-[#7A5835] space-y-1 border-t border-[#E3DAC8] pt-3">
-            <p>
-              ✅ <strong>SÍ traer:</strong> Cáscaras, comida cocida, carnes, huesos pequeños, café, servilletas.
-            </p>
-            <p>
-              🚫 <strong>NO traer:</strong> Bolsas plásticas, stickers de frutas, vidrios ni químicos.
-            </p>
+          <div className="w-full text-xs text-[#7A5835] space-y-2 border-t border-[#E3DAC8] pt-3">
+            <div className="flex items-start gap-1.5">
+              <Check className="w-4 h-4 text-[#2E4A32] shrink-0 mt-0.5" />
+              <span><strong>SÍ traer:</strong> Cáscaras, comida cocida, carnes, huesos pequeños, café, servilletas.</span>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <Ban className="w-4 h-4 text-[#B87339] shrink-0 mt-0.5" />
+              <span><strong>NO traer:</strong> Bolsas plásticas, stickers de frutas, vidrios ni químicos.</span>
+            </div>
           </div>
         </div>
 

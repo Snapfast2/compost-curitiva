@@ -76,7 +76,7 @@ export function SundayHero({ onOpenMap }: { onOpenMap: () => void }) {
   };
 
   const copyWhatsAppInvite = () => {
-    const text = `🌿 *¡Hola vecinos! Este domingo hay Paca Digestora Silva* 🪣\n\nNos reunimos en el Parque de las Pacas (*Calle 38 # 64A-8*, Conquistadores) este *domingo a las 9:30 AM*.\n\nLleva tu balde con residuos de cocina (cáscaras, café, sobras cocidas, carnes bien escurridas) para transformarlos en abono vivo sin olores ni moscas.\n\n¡Cero basura al relleno La Pradera! ¿Quién se suma? ✨`;
+    const text = `*¡Hola vecinos! Este domingo hay Paca Digestora Silva*\n\nNos reunimos en el Parque de las Pacas (*Calle 38 # 64A-8*, Conquistadores) este *domingo a las 9:30 AM*.\n\nLleva tu balde con residuos de cocina (cáscaras, café, sobras cocidas, carnes bien escurridas) para transformarlos en abono vivo sin olores ni moscas.\n\n¡Cero basura al relleno La Pradera! ¿Quién se suma?`;
 
     navigator.clipboard.writeText(text).then(() => {
       setCopiedInvite(true);
@@ -167,11 +167,11 @@ export function SundayHero({ onOpenMap }: { onOpenMap: () => void }) {
             {hasPledged ? (
               <>
                 <CheckCircle2 className="w-5 h-5 text-[#9CAF88]" />
-                <span>¡Balde confirmado para el domingo! 🎉</span>
+                <span>¡Balde confirmado para el domingo!</span>
               </>
             ) : (
               <>
-                <span className="text-lg">🪣</span>
+                <Sparkles className="w-4 h-4 text-white" />
                 <span>¡Llevaré mi balde este domingo!</span>
               </>
             )}

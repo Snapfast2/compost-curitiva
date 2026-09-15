@@ -92,8 +92,8 @@ export const PACAS_DATA: PacaRecord[] = [
     kgLeaves: 250,
     projectedCompostKg: 152,
     godparents: ["Mauricio", "Doña Marta", "Vecinos fundadores"],
-    notes: "🎉 ¡COSECHA LISTA! 152 kg de mantillo de bosque nativo 100% fértil para las jardineras y plantas de los vecinos.",
-    tag: "¡Lista para Cosechar!",
+    notes: "Cosecha lista: 152 kg de mantillo de bosque nativo 100% fértil para las jardineras y plantas de los vecinos.",
+    tag: "Lista para Cosechar",
     floraTop: "Jardín florido",
   },
 ];

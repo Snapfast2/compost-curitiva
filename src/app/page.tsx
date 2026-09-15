@@ -8,7 +8,7 @@ import { BucketChecker } from "@/components/BucketChecker";
 import { ParkMapCard } from "@/components/ParkMapCard";
 import { PrintablePosterModal } from "@/components/PrintablePosterModal";
 import { GuidedTourModal } from "@/components/GuidedTourModal";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 
 export default function Home() {
   const [activeScreen, setActiveScreen] = useState<"home" | "rayos-x" | "balde" | "comunidad">("home");
@@ -116,9 +116,10 @@ export default function Home() {
           <div className="relative w-full max-w-md bg-white rounded-3xl p-5 shadow-2xl border border-[#E3DAC8] max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setIsMapModalOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-[#EFE7DA] text-[#7A5835] hover:bg-[#C4A882]/40 font-bold z-10"
+              className="absolute top-4 right-4 p-2 rounded-full bg-[#EFE7DA] text-[#7A5835] hover:bg-[#C4A882]/40 z-10"
+              aria-label="Cerrar"
             >
-              ✕
+              <X className="w-4 h-4" />
             </button>
             <ParkMapCard />
           </div>

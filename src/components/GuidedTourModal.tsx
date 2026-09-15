@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronRight, ChevronLeft, Sparkles, CheckCircle2, MessageCircle, MapPin, Wind } from "lucide-react";
+import { X, ChevronRight, ChevronLeft, Sparkles, CheckCircle2, MessageCircle, MapPin, Wind, Leaf } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface GuidedTourModalProps {
@@ -181,8 +181,9 @@ export function GuidedTourModal({ isOpen, onClose, onComplete }: GuidedTourModal
               </p>
 
               {/* Highlight Pill */}
-              <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-xs text-white/95 font-medium leading-snug">
-                🌿 {currentStep.highlight}
+              <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-xs text-white/95 font-medium leading-snug flex items-center gap-1.5">
+                <Leaf className="w-3.5 h-3.5 text-[#9CAF88] shrink-0" />
+                <span>{currentStep.highlight}</span>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -203,10 +204,10 @@ export function GuidedTourModal({ isOpen, onClose, onComplete }: GuidedTourModal
                 {hasPledged ? (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-white" />
-                    <span>¡Balde confirmado para el domingo! 🎉</span>
+                    <span>Balde confirmado para el domingo</span>
                   </>
                 ) : (
-                  <span>🪣 ¡Llevaré mi balde este domingo!</span>
+                  <span>Llevaré mi balde este domingo</span>
                 )}
               </button>
             )}
