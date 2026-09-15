@@ -42,64 +42,37 @@ export function WhatsAppGroupsModal({ isOpen, onClose }: WhatsAppGroupsModalProp
             <span>Comunidad de WhatsApp</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-black text-[#1D3320]">
-            Grupos del Barrio
+            Grupo de Vecinos
           </h3>
           <p className="text-xs text-[#5C6B4A] leading-relaxed">
-            Tenemos dos grupos porque el primero se llena por el límite de participantes de WhatsApp. En ambos compartimos los avisos y convocatorias de cada domingo.
+            Aquí nos organizamos cada semana, confirmamos la paca del domingo a las 9:30 AM y resolvemos cualquier duda sobre residuos y abono.
           </p>
         </div>
 
-        {/* Group Cards */}
-        <div className="space-y-3">
-          {/* Grupo 1 */}
-          <div className="p-4 rounded-2xl bg-[#F7F3EB] border border-[#E3DAC8] flex items-center justify-between gap-3">
-            <div className="space-y-0.5">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#25D366]" />
-                <h4 className="text-sm font-bold text-[#1D3320]">
-                  Grupo #1: Paca Parque
-                </h4>
-              </div>
-              <p className="text-[11px] text-[#7A5835]">
-                Comunidad fundadora y avisos dominicales
-              </p>
+        {/* Official Single Group Card */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F3EB] border border-[#E3DAC8] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
+              <h4 className="text-base font-bold text-[#1D3320]">
+                Paca Parque Conquistadores
+              </h4>
             </div>
-
-            <a
-              href={PARK_SUMMARY.whatsappGroup1Url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#25D366] hover:bg-[#20BA5C] text-white text-xs font-bold shadow-xs transition-all shrink-0 active:scale-95"
-            >
-              <span>Unirme</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            <p className="text-xs text-[#7A5835]">
+              Comunidad activa • Convocatorias dominicales 9:30 AM
+            </p>
           </div>
 
-          {/* Grupo 2 */}
-          <div className="p-4 rounded-2xl bg-[#F7F3EB] border border-[#E3DAC8] flex items-center justify-between gap-3">
-            <div className="space-y-0.5">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#25D366]" />
-                <h4 className="text-sm font-bold text-[#1D3320]">
-                  Grupo #2: Paca Parque
-                </h4>
-              </div>
-              <p className="text-[11px] text-[#7A5835]">
-                Para nuevos vecinos y nuevos participantes
-              </p>
-            </div>
-
-            <a
-              href={PARK_SUMMARY.whatsappGroup2Url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#25D366] hover:bg-[#20BA5C] text-white text-xs font-bold shadow-xs transition-all shrink-0 active:scale-95"
-            >
-              <span>Unirme</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
+          <a
+            href={PARK_SUMMARY.whatsappGroup1Url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] hover:bg-[#20BA5C] text-white text-sm font-bold shadow-md shadow-[#25D366]/20 transition-all shrink-0 active:scale-95"
+          >
+            <MessageCircle className="w-4 h-4 fill-white" />
+            <span>Unirme al Grupo</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
         </div>
 
         {/* Copy invite for building chats */}

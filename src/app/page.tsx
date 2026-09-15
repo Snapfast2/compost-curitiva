@@ -8,13 +8,16 @@ import { BucketChecker } from "@/components/BucketChecker";
 import { ParkMapCard } from "@/components/ParkMapCard";
 import { PrintablePosterModal } from "@/components/PrintablePosterModal";
 import { GuidedTourModal } from "@/components/GuidedTourModal";
-import { ArrowLeft, X, Compass } from "lucide-react";
+import { WhatsAppGroupsModal } from "@/components/WhatsAppGroupsModal";
+import { ArrowLeft, X, Compass, Home as HomeIcon, Layers, Apple, MessageCircle } from "lucide-react";
 
 export default function Home() {
   const [activeScreen, setActiveScreen] = useState<"home" | "rayos-x" | "balde" | "comunidad">("home");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [isTourOpen, setIsTourOpen] = useState(false);
+  const [isCardDetailOpen, setIsCardDetailOpen] = useState(false);
+  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
 
   // Check URL params or first visit
   useEffect(() => {
@@ -57,6 +60,8 @@ export default function Home() {
                 onOpenBalde={() => setActiveScreen("balde")}
                 onOpenComunidad={() => setActiveScreen("comunidad")}
                 onOpenTour={() => setIsTourOpen(true)}
+                onOpenWhatsApp={() => setIsWhatsAppModalOpen(true)}
+                onDetailChange={(isOpen) => setIsCardDetailOpen(isOpen)}
               />
             </motion.div>
           )}
@@ -148,6 +153,76 @@ export default function Home() {
       <PrintablePosterModal
         isOpen={isPosterModalOpen}
         onClose={() => setIsPosterModalOpen(false)}
+      />
+
+      {/* Persistent Floating Bottom Navigation Dock (Visible across Home, Rayos X, and Balde) */}
+      {!isCardDetailOpen && (
+        <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-3 py-2 rounded-full bg-[#27442A]/95 text-white backdrop-blur-md border border-[#3E6142] shadow-xl shadow-black/25 flex items-center gap-1.5 sm:gap-2">
+          <button
+            onClick={() => {
+              setActiveScreen("home");
+              setIsCardDetailOpen(false);
+            }}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+              activeScreen === "home"
+                ? "bg-[#3F6342] text-white shadow-xs"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`}
+          >
+            <HomeIcon className="w-3.5 h-3.5" />
+            <span>Inicio</span>
+          </button>
+
+          <button
+            onClick={() => setActiveScreen("rayos-x")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+              activeScreen === "rayos-x"
+                ? "bg-[#3F6342] text-white shadow-xs"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`}
+            title="Rayos X Paca"
+          >
+            <Layers className="w-3.5 h-3.5" />
+            <span>Rayos X</span>
+          </button>
+
+          <button
+            onClick={() => setActiveScreen("balde")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+              activeScreen === "balde"
+                ? "bg-[#3F6342] text-white shadow-xs"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`}
+            title="Qué cabe en mi balde"
+          >
+            <Apple className="w-3.5 h-3.5" />
+            <span>Mi Balde</span>
+          </button>
+
+          <div className="w-[1px] h-4 bg-white/20 mx-0.5" />
+
+          <button
+            onClick={() => setIsTourOpen(true)}
+            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+            title="Ver Tutorial / Experiencia Guiada"
+          >
+            <Compass className="w-4 h-4 text-[#C4A882]" />
+          </button>
+
+          <button
+            onClick={() => setIsWhatsAppModalOpen(true)}
+            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+            title="Grupo de WhatsApp del Barrio"
+          >
+            <MessageCircle className="w-4 h-4 text-[#25D366]" />
+          </button>
+        </nav>
+      )}
+
+      {/* WhatsApp Official Community Group Modal */}
+      <WhatsAppGroupsModal
+        isOpen={isWhatsAppModalOpen}
+        onClose={() => setIsWhatsAppModalOpen(false)}
       />
     </div>
   );

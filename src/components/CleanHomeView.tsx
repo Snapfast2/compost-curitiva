@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, MapPin, Globe, User, Home as HomeIcon, CheckCircle2, Compass, MessageCircle } from "lucide-react";
 import confetti from "canvas-confetti";
-import { WhatsAppGroupsModal } from "@/components/WhatsAppGroupsModal";
 
 interface CleanHomeViewProps {
   onOpenMap: () => void;
@@ -13,6 +12,8 @@ interface CleanHomeViewProps {
   onOpenBalde: () => void;
   onOpenComunidad: () => void;
   onOpenTour?: () => void;
+  onOpenWhatsApp?: () => void;
+  onDetailChange?: (isOpen: boolean) => void;
 }
 
 const CARDS = [
@@ -63,13 +64,19 @@ export function CleanHomeView({
   onOpenBalde,
   onOpenComunidad,
   onOpenTour,
+  onOpenWhatsApp,
+  onDetailChange,
 }: CleanHomeViewProps) {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [selectedCard, setSelectedCard] = useState<(typeof CARDS)[0] | null>(null);
   const [hasPledged, setHasPledged] = useState(false);
-  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
 
   const activeCard = CARDS[activeCardIndex];
+
+  const handleSelectCard = (card: (typeof CARDS)[0] | null) => {
+    setSelectedCard(card);
+    onDetailChange?.(card !== null);
+  };
 
   const handlePledge = () => {
     if (!hasPledged) {
@@ -123,11 +130,11 @@ export function CleanHomeView({
                   Pacas activas & Cosecha
                 </h2>
                 <button
-                  onClick={() => setIsWhatsAppModalOpen(true)}
+                  onClick={onOpenWhatsApp}
                   className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#167035] border border-[#25D366]/30 transition-colors"
                 >
                   <MessageCircle className="w-3 h-3 text-[#25D366]" />
-                  <span>2 Grupos WhatsApp</span>
+                  <span>Grupo WhatsApp</span>
                 </button>
               </div>
             </div>
@@ -139,7 +146,7 @@ export function CleanHomeView({
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
-                onClick={() => setSelectedCard(activeCard)}
+                onClick={() => handleSelectCard(activeCard)}
                 className="group relative cursor-pointer overflow-hidden rounded-[34px] aspect-[3.7/4.8] shadow-lg shadow-black/15 flex flex-col justify-end p-6 border border-black/5"
               >
                 {/* Full-Bleed High-Res Photograph */}
@@ -169,7 +176,7 @@ export function CleanHomeView({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedCard(activeCard);
+                      handleSelectCard(activeCard);
                     }}
                     className="px-4 py-2.5 rounded-full bg-[#2E4A32] hover:bg-[#203623] text-white text-[12px] font-bold shadow-md shadow-black/30 transition-transform active:scale-95"
                   >
@@ -232,7 +239,7 @@ export function CleanHomeView({
               {/* Top Navigation Bar inside Detail */}
               <div className="relative z-20 flex items-center justify-between">
                 <button
-                  onClick={() => setSelectedCard(null)}
+                  onClick={() => handleSelectCard(null)}
                   className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/50 transition-colors"
                   aria-label="Volver"
                 >
@@ -338,71 +345,17 @@ export function CleanHomeView({
                 </button>
 
                 <button
-                  onClick={() => setIsWhatsAppModalOpen(true)}
+                  onClick={onOpenWhatsApp}
                   className="w-full py-3 rounded-full bg-[#E5ECE0] hover:bg-[#D6E3D0] text-[#27442A] text-xs font-bold transition-colors flex items-center justify-center gap-2 border border-[#C4D8C1]"
                 >
                   <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                  <span>Unirse al WhatsApp del barrio (2 grupos)</span>
+                  <span>Unirse al WhatsApp del barrio</span>
                 </button>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Floating Bottom Navigation Dock (Like in reference) */}
-      {!selectedCard && (
-        <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-3 py-2 rounded-full bg-[#27442A]/95 text-white backdrop-blur-md border border-[#3E6142] shadow-xl shadow-black/25 flex items-center gap-2">
-          <button
-            onClick={() => setSelectedCard(null)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#3F6342] text-white text-xs font-bold shadow-xs"
-          >
-            <HomeIcon className="w-3.5 h-3.5" />
-            <span>Inicio</span>
-          </button>
-
-          {onOpenTour && (
-            <button
-              onClick={onOpenTour}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition-colors text-xs font-semibold"
-              title="Ver experiencia QR / Tutorial"
-            >
-              <Compass className="w-3.5 h-3.5 text-[#C4A882]" />
-              <span>Tutorial</span>
-            </button>
-          )}
-
-          <button
-            onClick={onOpenRayosX}
-            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-            title="Rayos X Paca"
-          >
-            <Globe className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={onOpenBalde}
-            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-            title="Guía del Balde"
-          >
-            <User className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={() => setIsWhatsAppModalOpen(true)}
-            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-            title="Grupos de WhatsApp de Vecinos"
-          >
-            <MessageCircle className="w-4 h-4 text-[#25D366]" />
-          </button>
-        </nav>
-      )}
-
-      {/* WhatsApp Community Groups Modal */}
-      <WhatsAppGroupsModal
-        isOpen={isWhatsAppModalOpen}
-        onClose={() => setIsWhatsAppModalOpen(false)}
-      />
     </div>
   );
 }
