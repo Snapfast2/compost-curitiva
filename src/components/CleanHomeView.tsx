@@ -11,6 +11,7 @@ interface CleanHomeViewProps {
   onOpenRayosX: () => void;
   onOpenBalde: () => void;
   onOpenComunidad: () => void;
+  onOpenTour?: () => void;
 }
 
 const CARDS = [
@@ -72,6 +73,7 @@ export function CleanHomeView({
   onOpenRayosX,
   onOpenBalde,
   onOpenComunidad,
+  onOpenTour,
 }: CleanHomeViewProps) {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [selectedCard, setSelectedCard] = useState<(typeof CARDS)[0] | null>(null);
@@ -114,9 +116,19 @@ export function CleanHomeView({
               <h1 className="text-3xl sm:text-[34px] font-extrabold text-[#1B311E] tracking-tight leading-[1.15]">
                 Parque de<br />las Pacas
               </h1>
-              <h2 className="text-[15px] font-semibold text-[#3B543E] pt-5 pb-1">
-                Nuestras pacas activas
-              </h2>
+              <div className="flex items-center justify-between pt-5 pb-1">
+                <h2 className="text-[15px] font-semibold text-[#3B543E]">
+                  Nuestras pacas activas
+                </h2>
+                {onOpenTour && (
+                  <button
+                    onClick={onOpenTour}
+                    className="text-[11px] font-bold px-3 py-1 rounded-full bg-[#EAE3D5] text-[#2E4A32] hover:bg-[#DCD3C3] transition-colors"
+                  >
+                    ¿Qué es este cubo?
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Main Photo Card Carousel (Exact geometry from image) */}

@@ -1,18 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CleanHomeView } from "@/components/CleanHomeView";
 import { PacaRayosX } from "@/components/PacaRayosX";
 import { BucketChecker } from "@/components/BucketChecker";
 import { ParkMapCard } from "@/components/ParkMapCard";
 import { PrintablePosterModal } from "@/components/PrintablePosterModal";
+import { GuidedTourModal } from "@/components/GuidedTourModal";
 import { ArrowLeft } from "lucide-react";
 
 export default function Home() {
   const [activeScreen, setActiveScreen] = useState<"home" | "rayos-x" | "balde" | "comunidad">("home");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
+  const [isTourOpen, setIsTourOpen] = useState(false);
+
+  // Check URL params or first visit
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isFromQR = urlParams.get("from") === "qr" || urlParams.get("tour") === "true";
+      const hasSeenTour = localStorage.getItem("paca_tour_seen");
+
+      // Auto-open if coming from QR or first time visitor
+      if (isFromQR || !hasSeenTour) {
+        setIsTourOpen(true);
+      }
+    }
+  }, []);
+
+  const handleCloseTour = () => {
+    setIsTourOpen(false);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("paca_tour_seen", "true");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F7F3EB] text-[#1D3320] flex flex-col justify-between selection:bg-[#2E4A32] selection:text-white">
@@ -33,6 +56,7 @@ export default function Home() {
                 onOpenRayosX={() => setActiveScreen("rayos-x")}
                 onOpenBalde={() => setActiveScreen("balde")}
                 onOpenComunidad={() => setActiveScreen("comunidad")}
+                onOpenTour={() => setIsTourOpen(true)}
               />
             </motion.div>
           )}
@@ -78,6 +102,13 @@ export default function Home() {
           )}
         </AnimatePresence>
       </main>
+
+      {/* 30-45 Second Guided Story Tour for QR scanners */}
+      <GuidedTourModal
+        isOpen={isTourOpen}
+        onClose={handleCloseTour}
+        onComplete={handleCloseTour}
+      />
 
       {/* Map Modal */}
       {isMapModalOpen && (
