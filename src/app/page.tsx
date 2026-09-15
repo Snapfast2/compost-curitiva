@@ -8,7 +8,7 @@ import { BucketChecker } from "@/components/BucketChecker";
 import { ParkMapCard } from "@/components/ParkMapCard";
 import { PrintablePosterModal } from "@/components/PrintablePosterModal";
 import { GuidedTourModal } from "@/components/GuidedTourModal";
-import { ArrowLeft, X } from "lucide-react";
+import { ArrowLeft, X, Compass } from "lucide-react";
 
 export default function Home() {
   const [activeScreen, setActiveScreen] = useState<"home" | "rayos-x" | "balde" | "comunidad">("home");
@@ -70,13 +70,22 @@ export default function Home() {
               transition={{ duration: 0.25 }}
               className="w-full space-y-4 pb-20"
             >
-              <button
-                onClick={() => setActiveScreen("home")}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-[#E3DAC8] text-[#1D3320] text-xs font-bold shadow-xs hover:bg-[#EAE3D5] transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Volver al inicio</span>
-              </button>
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => setActiveScreen("home")}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-[#E3DAC8] text-[#1D3320] text-xs font-bold shadow-xs hover:bg-[#EAE3D5] transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Volver al inicio</span>
+                </button>
+                <button
+                  onClick={() => setIsTourOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#EAE3D5] text-[#2E4A32] text-xs font-bold shadow-xs hover:bg-[#DCD3C3] transition-colors"
+                >
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>Ver Tutorial QR</span>
+                </button>
+              </div>
               <PacaRayosX />
             </motion.div>
           )}
@@ -90,13 +99,22 @@ export default function Home() {
               transition={{ duration: 0.25 }}
               className="w-full space-y-4 pb-20"
             >
-              <button
-                onClick={() => setActiveScreen("home")}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-[#E3DAC8] text-[#1D3320] text-xs font-bold shadow-xs hover:bg-[#EAE3D5] transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Volver al inicio</span>
-              </button>
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => setActiveScreen("home")}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-[#E3DAC8] text-[#1D3320] text-xs font-bold shadow-xs hover:bg-[#EAE3D5] transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Volver al inicio</span>
+                </button>
+                <button
+                  onClick={() => setIsTourOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#EAE3D5] text-[#2E4A32] text-xs font-bold shadow-xs hover:bg-[#DCD3C3] transition-colors"
+                >
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>Ver Tutorial QR</span>
+                </button>
+              </div>
               <BucketChecker />
             </motion.div>
           )}

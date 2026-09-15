@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Globe, User, Home as HomeIcon, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, MapPin, Globe, User, Home as HomeIcon, CheckCircle2, Compass } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface CleanHomeViewProps {
@@ -98,9 +98,20 @@ export function CleanHomeView({
           >
             {/* Top Typography Header */}
             <div className="space-y-1 pt-2 px-1">
-              <p className="text-[11px] uppercase tracking-wider font-semibold text-[#5F7B61]">
-                Biotecnología limpia • Medellín
-              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-[11px] uppercase tracking-wider font-semibold text-[#5F7B61]">
+                  Biotecnología limpia • Medellín
+                </p>
+                {onOpenTour && (
+                  <button
+                    onClick={onOpenTour}
+                    className="inline-flex items-center gap-1 text-[11px] font-bold px-3 py-1 rounded-full bg-[#EAE3D5] text-[#2E4A32] hover:bg-[#DCD3C3] border border-[#D8CEBD] transition-all shadow-2xs"
+                  >
+                    <Compass className="w-3.5 h-3.5 text-[#2E4A32]" />
+                    <span>Ver Tutorial</span>
+                  </button>
+                )}
+              </div>
               <h1 className="text-3xl sm:text-[34px] font-extrabold text-[#1B311E] tracking-tight leading-[1.15]">
                 Parque de<br />las Pacas
               </h1>
@@ -111,7 +122,7 @@ export function CleanHomeView({
                 {onOpenTour && (
                   <button
                     onClick={onOpenTour}
-                    className="text-[11px] font-bold px-3 py-1 rounded-full bg-[#EAE3D5] text-[#2E4A32] hover:bg-[#DCD3C3] transition-colors"
+                    className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#EAE3D5] text-[#2E4A32] hover:bg-[#DCD3C3] transition-colors"
                   >
                     ¿Qué es este cubo?
                   </button>
@@ -216,14 +227,24 @@ export function CleanHomeView({
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-10" />
 
-              {/* Top Navigation Row: Back Button */}
+              {/* Top Navigation Bar inside Detail */}
               <div className="relative z-20 flex items-center justify-between">
                 <button
                   onClick={() => setSelectedCard(null)}
                   className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/50 transition-colors"
+                  aria-label="Volver"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
+                {onOpenTour && (
+                  <button
+                    onClick={onOpenTour}
+                    className="px-3.5 py-1.5 rounded-full bg-black/30 backdrop-blur-md text-white/95 hover:text-white text-xs font-semibold flex items-center gap-1.5 hover:bg-black/50 transition-colors border border-white/20"
+                  >
+                    <Compass className="w-3.5 h-3.5 text-[#E5ECE0]" />
+                    <span>Tutorial QR</span>
+                  </button>
+                )}
               </div>
 
               {/* Photo Bottom Info & Floating Map Button */}
@@ -321,18 +342,29 @@ export function CleanHomeView({
 
       {/* Floating Bottom Navigation Dock (Like in reference) */}
       {!selectedCard && (
-        <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-3 py-2 rounded-full bg-[#27442A]/95 text-white backdrop-blur-md border border-[#3E6142] shadow-xl shadow-black/25 flex items-center gap-3">
+        <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-3 py-2 rounded-full bg-[#27442A]/95 text-white backdrop-blur-md border border-[#3E6142] shadow-xl shadow-black/25 flex items-center gap-2">
           <button
             onClick={() => setSelectedCard(null)}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#3F6342] text-white text-xs font-bold shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#3F6342] text-white text-xs font-bold shadow-xs"
           >
             <HomeIcon className="w-3.5 h-3.5" />
             <span>Inicio</span>
           </button>
 
+          {onOpenTour && (
+            <button
+              onClick={onOpenTour}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition-colors text-xs font-semibold"
+              title="Ver experiencia QR / Tutorial"
+            >
+              <Compass className="w-3.5 h-3.5 text-[#C4A882]" />
+              <span>Tutorial</span>
+            </button>
+          )}
+
           <button
             onClick={onOpenRayosX}
-            className="p-2 rounded-full text-white/80 hover:text-white transition-colors"
+            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
             title="Rayos X Paca"
           >
             <Globe className="w-4 h-4" />
@@ -340,7 +372,7 @@ export function CleanHomeView({
 
           <button
             onClick={onOpenBalde}
-            className="p-2 rounded-full text-white/80 hover:text-white transition-colors"
+            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
             title="Guía del Balde"
           >
             <User className="w-4 h-4" />
