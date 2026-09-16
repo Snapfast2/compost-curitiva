@@ -29,9 +29,13 @@ import {
   Quote,
   ChevronDown,
   ArrowRight,
+  Info,
+  X,
+  Calendar,
+  MapPin,
 } from "lucide-react";
 
-type BiotechTab = "anatomia" | "faq";
+type BiotechTab = "faq" | "anatomia";
 
 interface LayerDetail {
   id: string;
@@ -203,7 +207,6 @@ const FAQS_DATA = [
   },
 ];
 
-// Documented authentic quotes of Guillermo Silva Pérez
 const SILVA_WISDOM_QUOTES = [
   {
     quote: "Los ecologistas hablan de medio ambiente porque dejaron a la gente por fuera. El ambiente es completo con la gente.",
@@ -306,12 +309,13 @@ export function PacaBiotecnologia() {
   const [viewMode, setViewMode] = useState<"xray" | "exterior">("xray");
   const [selectedLayerId, setSelectedLayerId] = useState<string>("layer-3");
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq-1");
+  const [isImpactPopoutOpen, setIsImpactPopoutOpen] = useState<boolean>(false);
 
   const activeLayer = PACA_LAYERS_DATA.find((l) => l.id === selectedLayerId) || PACA_LAYERS_DATA[1];
 
   return (
-    <div className="space-y-5">
-      {/* 2 Big Prominent Tabs at the very top */}
+    <div className="space-y-4">
+      {/* 2 Big Prominent Tabs at the very top (Clean & Bold) */}
       <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-[#EAE3D5] border border-[#DCD3C3] shadow-xs">
         <button
           onClick={() => setActiveTab("faq")}
@@ -338,34 +342,121 @@ export function PacaBiotecnologia() {
         </button>
       </div>
 
-      {/* Header Info Banner */}
-      <div className="bg-white rounded-3xl p-5 border border-[#E3DAC8] shadow-xs space-y-2">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E5ECE0] text-[#2E4A32] text-xs font-bold uppercase tracking-wider">
-            <Dna className="w-3.5 h-3.5" />
-            <span>Biotecnología Silva • Medellín</span>
+      {/* TAB 1: MITOS & PREGUNTAS FRECUENTES (Default View) */}
+      {activeTab === "faq" && (
+        <div className="space-y-3">
+          {/* Main Focused Header Card (Single card, no redundancy) */}
+          <div className="bg-[#2E4A32] text-white rounded-3xl p-5 border border-[#3E6142] shadow-xs space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#A8BE9A] uppercase tracking-wider">
+                <HelpCircle className="w-4 h-4 text-[#A8BE9A]" />
+                <span>Dudas Vecinales Frecuentes</span>
+              </div>
+              <span className="text-[10px] font-bold text-emerald-300 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/10">
+                Medellín • 1989
+              </span>
+            </div>
+
+            <h3 className="text-lg sm:text-xl font-black text-white">
+              Respuestas claras a los temores de compostar en el parque
+            </h3>
+
+            <p className="text-xs text-[#E5ECE0]/90 leading-relaxed">
+              Toca cada pregunta para descubrir la ciencia y la experiencia real detrás de las{" "}
+              {/* Special interactive badge for 341 pacas */}
+              <button
+                type="button"
+                onClick={() => setIsImpactPopoutOpen(true)}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FFD700]/20 text-[#FFEA79] font-black text-xs hover:bg-[#FFD700]/30 hover:scale-105 active:scale-95 transition-all border border-[#FFD700]/40 shadow-xs cursor-pointer align-baseline"
+                title="Toca para ver el cálculo histórico"
+              >
+                <span>341 pacas</span>
+                <Info className="w-3.5 h-3.5 text-[#FFEA79]" />
+              </button>{" "}
+              del barrio.
+            </p>
           </div>
 
-          <span className="text-xs font-bold text-[#7A5835] bg-[#F8F5EE] px-3 py-1 rounded-full border border-[#E3DAC8]">
-            341 pacas en Conquistadores
-          </span>
-        </div>
+          {/* Accordion Questions */}
+          <div className="space-y-2.5">
+            {FAQS_DATA.map((faq) => {
+              const isOpen = openFaqId === faq.id;
+              const FaqIcon = faq.icon;
+              return (
+                <div
+                  key={faq.id}
+                  className="bg-white rounded-2xl border border-[#E3DAC8] shadow-2xs overflow-hidden transition-all"
+                >
+                  <button
+                    onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
+                    className="w-full text-left p-4 flex items-center justify-between gap-3 hover:bg-[#F8F5EE]/60 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-xl bg-[#F5EFE4] text-[#7A5835] shrink-0">
+                        <FaqIcon className="w-4 h-4 text-[#2E4A32]" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#B87339]">
+                          {faq.tag}
+                        </span>
+                        <h4 className="text-xs sm:text-sm font-bold text-[#1D3320] leading-snug">
+                          {faq.question}
+                        </h4>
+                      </div>
+                    </div>
+                    <ChevronDown
+                      className={`w-4 h-4 text-[#7A5835] shrink-0 transition-transform duration-200 ${
+                        isOpen ? "rotate-180 text-[#2E4A32]" : ""
+                      }`}
+                    />
+                  </button>
 
-        <div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#1D3320] tracking-tight">
-            {activeTab === "anatomia" ? "Anatomía de una Paca de 1 m³" : "Mitos y Preguntas Frecuentes"}
-          </h2>
-          <p className="text-xs sm:text-sm text-[#5C6B4A]">
-            {activeTab === "anatomia"
-              ? "Toca las capas del corte transversal para descubrir la ingeniería que digiere 250 kg de comida sin olores."
-              : "Respuestas claras con base biológica a las dudas y temores más comunes de los vecinos."}
-          </p>
-        </div>
-      </div>
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <div className="px-4 pb-4 pt-1 text-xs text-[#2E4A32]/90 leading-relaxed border-t border-[#E3DAC8]/50 bg-[#FBF9F5]">
+                          <p>{faq.answer}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
 
-      {/* TAB 1: ANATOMÍA DEL CUBO */}
+          {/* Rotating Quotes Widget in FAQ */}
+          <RotatingSilvaQuote />
+        </div>
+      )}
+
+      {/* TAB 2: ANATOMÍA DEL CUBO */}
       {activeTab === "anatomia" && (
         <div className="space-y-4">
+          {/* Header Banner for Anatomía (Single card, clean and focused) */}
+          <div className="bg-[#2E4A32] text-white rounded-3xl p-5 border border-[#3E6142] shadow-xs space-y-1.5">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#A8BE9A] uppercase tracking-wider">
+                <Layers className="w-4 h-4 text-[#A8BE9A]" />
+                <span>Ingeniería Biológica de 1 m³</span>
+              </div>
+              <span className="text-[11px] font-bold text-yellow-300 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15">
+                500 kg Comprimidos
+              </span>
+            </div>
+            <h3 className="text-lg font-black text-white">
+              Anatomía y Funcionamiento del Cubo
+            </h3>
+            <p className="text-xs text-[#E5ECE0]/85 leading-relaxed">
+              Toca las capas del corte transversal para descubrir cómo se digieren 250 kg de comida con 250 kg de hojas secas sin pudrición.
+            </p>
+          </div>
+
           {/* Quick Metrics Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             <div className="bg-white rounded-2xl p-2.5 border border-[#E3DAC8] flex items-center gap-2 shadow-2xs">
@@ -760,78 +851,91 @@ export function PacaBiotecnologia() {
         </div>
       )}
 
-      {/* TAB 2: MITOS & PREGUNTAS FRECUENTES (Human, practical, direct) */}
-      {activeTab === "faq" && (
-        <div className="space-y-3">
-          <div className="bg-[#2E4A32] text-white rounded-3xl p-5 border border-[#3E6142] shadow-xs space-y-1.5">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#A8BE9A] uppercase tracking-wider">
-              <HelpCircle className="w-4 h-4 text-[#A8BE9A]" />
-              <span>Dudas Vecinales Frecuentes</span>
-            </div>
-            <h3 className="text-lg font-black">
-              Respuestas claras a los temores de compostar en el parque
-            </h3>
-            <p className="text-xs text-[#E5ECE0]/85 leading-relaxed">
-              Toca cada pregunta para descubrir la ciencia y la experiencia real detrás de las 341 pacas del barrio.
-            </p>
-          </div>
+      {/* Interactive Pop-out Modal for 341 Pacas (Historical Math Breakdown) */}
+      <AnimatePresence>
+        {isImpactPopoutOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 15 }}
+              transition={{ type: "spring", stiffness: 350, damping: 28 }}
+              className="relative w-full max-w-sm bg-white rounded-3xl p-6 shadow-2xl border border-[#E3DAC8] space-y-4"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setIsImpactPopoutOpen(false)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-[#F5EFE4] text-[#7A5835] hover:bg-[#EAE3D5] transition-colors"
+                aria-label="Cerrar ventana"
+              >
+                <X className="w-4 h-4" />
+              </button>
 
-          <div className="space-y-2.5">
-            {FAQS_DATA.map((faq) => {
-              const isOpen = openFaqId === faq.id;
-              const FaqIcon = faq.icon;
-              return (
-                <div
-                  key={faq.id}
-                  className="bg-white rounded-2xl border border-[#E3DAC8] shadow-2xs overflow-hidden transition-all"
-                >
-                  <button
-                    onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
-                    className="w-full text-left p-4 flex items-center justify-between gap-3 hover:bg-[#F8F5EE]/60 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-xl bg-[#F5EFE4] text-[#7A5835] shrink-0">
-                        <FaqIcon className="w-4 h-4 text-[#2E4A32]" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#B87339]">
-                          {faq.tag}
-                        </span>
-                        <h4 className="text-xs sm:text-sm font-bold text-[#1D3320] leading-snug">
-                          {faq.question}
-                        </h4>
-                      </div>
-                    </div>
-                    <ChevronDown
-                      className={`w-4 h-4 text-[#7A5835] shrink-0 transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-[#2E4A32]" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="px-4 pb-4 pt-1 text-xs text-[#2E4A32]/90 leading-relaxed border-t border-[#E3DAC8]/50 bg-[#FBF9F5]">
-                          <p>{faq.answer}</p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+              {/* Pop-out Content */}
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E5ECE0] text-[#2E4A32] text-[10px] font-extrabold uppercase tracking-wider">
+                  <Award className="w-3.5 h-3.5" />
+                  <span>Hito Histórico Comunitario</span>
                 </div>
-              );
-            })}
-          </div>
+                <h3 className="text-xl font-black text-[#1D3320] leading-tight">
+                  341 Pacas = +6 años y medio de domingos
+                </h3>
+                <p className="text-xs text-[#5C6B4A] font-medium">
+                  El cálculo detrás de la perseverancia en el Parque de las Pacas
+                </p>
+              </div>
 
-          {/* Dynamic Rotating Quotes Widget in FAQ as well */}
-          <RotatingSilvaQuote />
-        </div>
-      )}
+              {/* Detailed Math Explanation */}
+              <div className="p-3.5 rounded-2xl bg-[#F8F5EE] border border-[#E3DAC8] space-y-2 text-xs text-[#2E4A32]/90 leading-relaxed">
+                <p>
+                  Entendiendo que en nuestro parque se fabrica <strong>1 paca cada domingo</strong> (52 semanas al año):
+                </p>
+                <div className="p-2.5 rounded-xl bg-white border border-[#E3DAC8] text-center font-bold text-[#1D3320]">
+                  341 pacas ÷ 52 semanas = <span className="text-[#B87339] font-black">6 años y 7 meses</span>
+                </div>
+                <p className="text-[11px] text-[#7A5835]">
+                  Son más de 6 años y medio continuos de vecinos bajando de sus apartamentos con su balde para encontrarse, pisar hojarasca y tejer barrio en Conquistadores.
+                </p>
+              </div>
+
+              {/* 3 Impact Highlights */}
+              <div className="space-y-2 pt-1">
+                <div className="flex items-start gap-2.5 text-xs text-[#2E4A32]">
+                  <Calendar className="w-4 h-4 text-[#4D7850] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-[#1D3320]">Ininterrumpido:</strong>
+                    <span>Todos los domingos 9:30 AM en Calle 38 # 64A-8.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 text-xs text-[#2E4A32]">
+                  <Scale className="w-4 h-4 text-[#B87339] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-[#1D3320]">~170 Toneladas desviadas:</strong>
+                    <span>Que no llegaron a contaminar al relleno La Pradera.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 text-xs text-[#2E4A32]">
+                  <Sprout className="w-4 h-4 text-[#2E4A32] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-[#1D3320]">~85 Toneladas de abono vivo:</strong>
+                    <span>Regresadas a los árboles del parque y a las plantas del barrio.</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dismiss Button */}
+              <button
+                onClick={() => setIsImpactPopoutOpen(false)}
+                className="w-full py-3 rounded-2xl bg-[#2E4A32] text-white font-black text-xs hover:bg-[#1D3320] transition-colors shadow-sm"
+              >
+                Entendido, ¡es impresionante!
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
