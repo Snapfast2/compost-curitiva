@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Dna,
@@ -28,7 +28,7 @@ import {
   Sprout,
   Quote,
   ChevronDown,
-  Calendar,
+  ArrowRight,
 } from "lucide-react";
 
 type BiotechTab = "anatomia" | "faq";
@@ -202,6 +202,104 @@ const FAQS_DATA = [
     icon: Award,
   },
 ];
+
+// Documented authentic quotes of Guillermo Silva Pérez
+const SILVA_WISDOM_QUOTES = [
+  {
+    quote: "Los ecologistas hablan de medio ambiente porque dejaron a la gente por fuera. El ambiente es completo con la gente.",
+    context: "Sobre el tejido social y los parques",
+  },
+  {
+    quote: "Uno sabe que los residuos están suficientemente prensados cuando camina sobre ellos — y no entre ellos.",
+    context: "Sobre la técnica del pisón",
+  },
+  {
+    quote: "El bosque no huele a podrido; el bosque huele delicioso. Si tu paca huele a bosque, la hiciste bien.",
+    context: "Sobre el mito del mal olor",
+  },
+  {
+    quote: "La basura no existe en la naturaleza. Lo que llamamos basura son nutrientes y vida esperando regresar a la tierra.",
+    context: "Filosofía central de la paca",
+  },
+  {
+    quote: "La paca no es solo para hacer abono; es un pretexto pedagógico para que los vecinos se conozcan y cuiden su parque.",
+    context: "Sobre la vida en comunidad",
+  },
+  {
+    quote: "Cuando retiras el cajón de madera y solo ves un bloque limpio de hojas secas, comprendes que la biología venció al desorden.",
+    context: "Sobre el nido protector",
+  },
+];
+
+export function RotatingSilvaQuote() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % SILVA_WISDOM_QUOTES.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleNext = () => {
+    setIndex((prev) => (prev + 1) % SILVA_WISDOM_QUOTES.length);
+  };
+
+  const current = SILVA_WISDOM_QUOTES[index];
+
+  return (
+    <div className="p-4 rounded-2xl bg-[#F8F5EE] border-l-4 border-[#B87339] border-y border-r border-[#E3DAC8] shadow-2xs space-y-2.5">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#B87339] flex items-center gap-1.5">
+          <Quote className="w-3 h-3 text-[#B87339]" />
+          <span>Palabras del Maestro Silva ({index + 1}/{SILVA_WISDOM_QUOTES.length})</span>
+        </span>
+        <button
+          onClick={handleNext}
+          className="text-[10px] font-bold text-[#5C6B4A] hover:text-[#1D3320] flex items-center gap-1 py-0.5 px-2.5 rounded-full bg-white border border-[#E3DAC8] transition-colors"
+          title="Ver siguiente frase"
+        >
+          <span>Siguiente</span>
+          <ArrowRight className="w-3 h-3" />
+        </button>
+      </div>
+
+      <div className="min-h-[52px] flex items-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="space-y-1 w-full"
+          >
+            <p className="text-xs sm:text-sm text-[#1D3320] font-medium italic leading-snug">
+              «{current.quote}»
+            </p>
+            <p className="text-[10px] text-[#7A5835] font-bold not-italic">
+              — {current.context}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Interactive Progress Indicators */}
+      <div className="flex items-center gap-1.5 pt-0.5">
+        {SILVA_WISDOM_QUOTES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            aria-label={`Frase ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all ${
+              i === index ? "w-5 bg-[#B87339]" : "w-1.5 bg-[#DCD3C3] hover:bg-[#B87339]/50"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function PacaBiotecnologia() {
   const [activeTab, setActiveTab] = useState<BiotechTab>("anatomia");
@@ -612,7 +710,7 @@ export function PacaBiotecnologia() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Tribute Card to Guillermo Silva with authentic portrait photo */}
+          {/* Tribute Card to Guillermo Silva with photo + Rotating Quotes */}
           <div className="bg-white rounded-3xl p-5 border border-[#E3DAC8] shadow-sm space-y-4">
             <div className="flex items-center gap-3.5">
               <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#2E4A32] shrink-0 shadow-md">
@@ -637,11 +735,14 @@ export function PacaBiotecnologia() {
             </div>
 
             <p className="text-xs text-[#2E4A32]/90 leading-relaxed">
-              Guillermo Silva diseñó este método al observar cómo el suelo de los bosques andinos descompone toneladas de materia vegetal y animal sin emitir olores ni proliferar plagas. Comprendió que la clave de la naturaleza no es ventilar la basura, sino <strong>prensarla sin aire</strong> junto a abundante hojarasca seca.
+              Guillermo Silva diseñó este método al observar cómo el suelo de los bosques andinos descompone toneladas de materia orgánica sin emitir olores ni plagas. Su descubrimiento: <strong>prensar sin aire</strong> junto a abundante hojarasca seca.
             </p>
 
+            {/* Dynamic Rotating Quotes Widget */}
+            <RotatingSilvaQuote />
+
             {/* Impact Counter in Conquistadores */}
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-[#E3DAC8]/70">
+            <div className="grid grid-cols-3 gap-2 pt-1 border-t border-[#E3DAC8]/70">
               <div className="p-2.5 rounded-2xl bg-[#F8F5EE] border border-[#E3DAC8] text-center">
                 <p className="text-lg font-black text-[#2E4A32]">341</p>
                 <p className="text-[10px] text-[#7A5835] font-bold">Pacas armadas</p>
@@ -727,20 +828,8 @@ export function PacaBiotecnologia() {
             })}
           </div>
 
-          {/* Guillermo Quote in FAQ */}
-          <div className="p-4 rounded-3xl bg-white border border-[#E3DAC8] flex items-center gap-3.5 shadow-2xs">
-            <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-[#2E4A32] shrink-0">
-              <img
-                src="/community/guillermo-silva.jpg"
-                alt="Guillermo Silva"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-            <p className="text-xs text-[#7A5835] italic leading-snug">
-              «La basura no existe en la naturaleza; la inventó el ser humano cuando mezcló la comida con el plástico.»
-              <span className="block font-bold not-italic text-[#1D3320] mt-0.5">— Guillermo Silva Pérez</span>
-            </p>
-          </div>
+          {/* Dynamic Rotating Quotes Widget in FAQ as well */}
+          <RotatingSilvaQuote />
         </div>
       )}
     </div>
