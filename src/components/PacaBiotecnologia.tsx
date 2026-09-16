@@ -28,11 +28,10 @@ import {
   Sprout,
   Quote,
   ChevronDown,
-  Info,
   Calendar,
 } from "lucide-react";
 
-type BiotechSubTab = "anatomia" | "faq" | "legado";
+type BiotechTab = "anatomia" | "faq";
 
 interface LayerDetail {
   id: string;
@@ -205,7 +204,7 @@ const FAQS_DATA = [
 ];
 
 export function PacaBiotecnologia() {
-  const [subTab, setSubTab] = useState<BiotechSubTab>("anatomia");
+  const [activeTab, setActiveTab] = useState<BiotechTab>("anatomia");
   const [viewMode, setViewMode] = useState<"xray" | "exterior">("xray");
   const [selectedLayerId, setSelectedLayerId] = useState<string>("layer-3");
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq-1");
@@ -214,8 +213,35 @@ export function PacaBiotecnologia() {
 
   return (
     <div className="space-y-5">
-      {/* Header Banner */}
-      <div className="bg-white rounded-3xl p-5 border border-[#E3DAC8] shadow-xs space-y-3">
+      {/* 2 Big Prominent Tabs at the very top */}
+      <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-[#EAE3D5] border border-[#DCD3C3] shadow-xs">
+        <button
+          onClick={() => setActiveTab("anatomia")}
+          className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-black transition-all ${
+            activeTab === "anatomia"
+              ? "bg-[#2E4A32] text-white shadow-md shadow-[#2E4A32]/25 scale-[1.01]"
+              : "text-[#5C6B4A] hover:text-[#1D3320] hover:bg-white/50"
+          }`}
+        >
+          <Layers className="w-4 h-4 shrink-0" />
+          <span className="whitespace-nowrap">Anatomía del Cubo</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("faq")}
+          className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-black transition-all ${
+            activeTab === "faq"
+              ? "bg-[#2E4A32] text-white shadow-md shadow-[#2E4A32]/25 scale-[1.01]"
+              : "text-[#5C6B4A] hover:text-[#1D3320] hover:bg-white/50"
+          }`}
+        >
+          <HelpCircle className="w-4 h-4 shrink-0" />
+          <span className="whitespace-nowrap">Mitos & Dudas</span>
+        </button>
+      </div>
+
+      {/* Header Info Banner */}
+      <div className="bg-white rounded-3xl p-5 border border-[#E3DAC8] shadow-xs space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E5ECE0] text-[#2E4A32] text-xs font-bold uppercase tracking-wider">
             <Dna className="w-3.5 h-3.5" />
@@ -229,55 +255,18 @@ export function PacaBiotecnologia() {
 
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-[#1D3320] tracking-tight">
-            Biotecnología Silva
+            {activeTab === "anatomia" ? "Anatomía de una Paca de 1 m³" : "Mitos y Preguntas Frecuentes"}
           </h2>
           <p className="text-xs sm:text-sm text-[#5C6B4A]">
-            La ingeniería biológica paisa que transforma 250 kg de comida en tierra viva sin malos olores ni plagas.
+            {activeTab === "anatomia"
+              ? "Toca las capas del corte transversal para descubrir la ingeniería que digiere 250 kg de comida sin olores."
+              : "Respuestas claras con base biológica a las dudas y temores más comunes de los vecinos."}
           </p>
-        </div>
-
-        {/* Sub-Navigation Tabs */}
-        <div className="grid grid-cols-3 gap-1.5 p-1 rounded-2xl bg-[#F5EFE4] border border-[#E3DAC8]">
-          <button
-            onClick={() => setSubTab("anatomia")}
-            className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all ${
-              subTab === "anatomia"
-                ? "bg-[#2E4A32] text-white shadow-xs"
-                : "text-[#7A5835] hover:text-[#1D3320] hover:bg-white/50"
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5 shrink-0" />
-            <span className="line-clamp-1">Anatomía</span>
-          </button>
-
-          <button
-            onClick={() => setSubTab("faq")}
-            className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all ${
-              subTab === "faq"
-                ? "bg-[#2E4A32] text-white shadow-xs"
-                : "text-[#7A5835] hover:text-[#1D3320] hover:bg-white/50"
-            }`}
-          >
-            <HelpCircle className="w-3.5 h-3.5 shrink-0" />
-            <span className="line-clamp-1">Mitos & Dudas</span>
-          </button>
-
-          <button
-            onClick={() => setSubTab("legado")}
-            className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-bold transition-all ${
-              subTab === "legado"
-                ? "bg-[#2E4A32] text-white shadow-xs"
-                : "text-[#7A5835] hover:text-[#1D3320] hover:bg-white/50"
-            }`}
-          >
-            <Award className="w-3.5 h-3.5 shrink-0" />
-            <span className="line-clamp-1">El Maestro</span>
-          </button>
         </div>
       </div>
 
-      {/* TAB 1: ANATOMÍA DEL CUBO (Visual, interactivo, limpio) */}
-      {subTab === "anatomia" && (
+      {/* TAB 1: ANATOMÍA DEL CUBO */}
+      {activeTab === "anatomia" && (
         <div className="space-y-4">
           {/* Quick Metrics Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -622,11 +611,56 @@ export function PacaBiotecnologia() {
               </div>
             </motion.div>
           </AnimatePresence>
+
+          {/* Tribute Card to Guillermo Silva with authentic portrait photo */}
+          <div className="bg-white rounded-3xl p-5 border border-[#E3DAC8] shadow-sm space-y-4">
+            <div className="flex items-center gap-3.5">
+              <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#2E4A32] shrink-0 shadow-md">
+                <img
+                  src="/community/guillermo-silva.jpg"
+                  alt="Guillermo Silva Pérez"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              <div>
+                <div className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-[#B87339]">
+                  <Award className="w-3 h-3" />
+                  <span>El Creador (Medellín, 1989)</span>
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-[#1D3320] leading-tight">
+                  Guillermo Silva Pérez
+                </h3>
+                <p className="text-xs text-[#5C6B4A] font-medium">
+                  Tecnólogo Forestal • Inventor de la Paca Digestora
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-[#2E4A32]/90 leading-relaxed">
+              Guillermo Silva diseñó este método al observar cómo el suelo de los bosques andinos descompone toneladas de materia vegetal y animal sin emitir olores ni proliferar plagas. Comprendió que la clave de la naturaleza no es ventilar la basura, sino <strong>prensarla sin aire</strong> junto a abundante hojarasca seca.
+            </p>
+
+            {/* Impact Counter in Conquistadores */}
+            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-[#E3DAC8]/70">
+              <div className="p-2.5 rounded-2xl bg-[#F8F5EE] border border-[#E3DAC8] text-center">
+                <p className="text-lg font-black text-[#2E4A32]">341</p>
+                <p className="text-[10px] text-[#7A5835] font-bold">Pacas armadas</p>
+              </div>
+              <div className="p-2.5 rounded-2xl bg-[#F8F5EE] border border-[#E3DAC8] text-center">
+                <p className="text-lg font-black text-[#2E4A32]">~170 Ton</p>
+                <p className="text-[10px] text-[#7A5835] font-bold">Desviadas</p>
+              </div>
+              <div className="p-2.5 rounded-2xl bg-[#F8F5EE] border border-[#E3DAC8] text-center">
+                <p className="text-lg font-black text-[#2E4A32]">~85 Ton</p>
+                <p className="text-[10px] text-[#7A5835] font-bold">Humus vivo</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
       {/* TAB 2: MITOS & PREGUNTAS FRECUENTES (Human, practical, direct) */}
-      {subTab === "faq" && (
+      {activeTab === "faq" && (
         <div className="space-y-3">
           <div className="bg-[#2E4A32] text-white rounded-3xl p-5 border border-[#3E6142] shadow-xs space-y-1.5">
             <div className="flex items-center gap-2 text-xs font-bold text-[#A8BE9A] uppercase tracking-wider">
@@ -692,65 +726,20 @@ export function PacaBiotecnologia() {
               );
             })}
           </div>
-        </div>
-      )}
 
-      {/* TAB 3: EL MAESTRO SILVA & IMPACTO TERRITORIAL */}
-      {subTab === "legado" && (
-        <div className="space-y-4">
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#E3DAC8] shadow-sm space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-[#E5ECE0] text-[#2E4A32]">
-                <Award className="w-6 h-6" />
-              </div>
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#B87339]">
-                  Innovación Hecha en Medellín (1989)
-                </span>
-                <h3 className="text-lg font-black text-[#1D3320]">
-                  Guillermo Silva Pérez
-                </h3>
-                <p className="text-xs text-[#5C6B4A]">
-                  Tecnólogo Forestal e Investigador Ambiental
-                </p>
-              </div>
+          {/* Guillermo Quote in FAQ */}
+          <div className="p-4 rounded-3xl bg-white border border-[#E3DAC8] flex items-center gap-3.5 shadow-2xs">
+            <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-[#2E4A32] shrink-0">
+              <img
+                src="/community/guillermo-silva.jpg"
+                alt="Guillermo Silva"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
-
-            <p className="text-xs sm:text-sm text-[#2E4A32]/90 leading-relaxed">
-              Guillermo Silva inventó la Paca Digestora Silva al observar cómo el bosque nativo colombiano digiere toneladas de materia orgánica sin generar malos olores, lixiviados ni moscas. Comprendió que la clave de la naturaleza no es ventilar la basura, sino <strong>prensarla sin aire</strong> en presencia de abundante hojarasca seca.
+            <p className="text-xs text-[#7A5835] italic leading-snug">
+              «La basura no existe en la naturaleza; la inventó el ser humano cuando mezcló la comida con el plástico.»
+              <span className="block font-bold not-italic text-[#1D3320] mt-0.5">— Guillermo Silva Pérez</span>
             </p>
-
-            <div className="p-4 rounded-2xl bg-[#F8F5EE] border-l-4 border-[#B87339] border-y border-r border-[#E3DAC8] text-xs text-[#7A5835] italic leading-relaxed">
-              «La basura no existe en la naturaleza; la inventó el ser humano cuando mezcló la comida con el plástico y el aire contaminado. Si separas y prensas con hojas del parque, solo cosechas vida.»
-            </div>
-          </div>
-
-          {/* Impact Stats in Conquistadores */}
-          <div className="bg-[#2E4A32] text-white rounded-3xl p-5 border border-[#3E6142] shadow-sm space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#A8BE9A] uppercase tracking-wider">
-              <Calendar className="w-4 h-4 text-[#A8BE9A]" />
-              <span>Impacto Comunitario en Conquistadores</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-              <div className="bg-white/10 rounded-2xl p-3 border border-white/10">
-                <p className="text-2xl font-black text-[#FFCF56]">341</p>
-                <p className="text-xs font-bold text-white">Pacas Fabricadas</p>
-                <p className="text-[10px] text-[#E5ECE0]/75 mt-0.5">En nuestro parque del barrio</p>
-              </div>
-
-              <div className="bg-white/10 rounded-2xl p-3 border border-white/10">
-                <p className="text-2xl font-black text-emerald-300">~170 Ton</p>
-                <p className="text-xs font-bold text-white">Residuos Desviados</p>
-                <p className="text-[10px] text-[#E5ECE0]/75 mt-0.5">Que no fueron al relleno de Pradera</p>
-              </div>
-
-              <div className="bg-white/10 rounded-2xl p-3 border border-white/10">
-                <p className="text-2xl font-black text-amber-200">~85 Ton</p>
-                <p className="text-xs font-bold text-white">Abono Cosechado</p>
-                <p className="text-[10px] text-[#E5ECE0]/75 mt-0.5">Regresado a jardines y árboles</p>
-              </div>
-            </div>
           </div>
         </div>
       )}
