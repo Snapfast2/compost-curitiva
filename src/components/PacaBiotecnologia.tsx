@@ -302,7 +302,7 @@ export function RotatingSilvaQuote() {
 }
 
 export function PacaBiotecnologia() {
-  const [activeTab, setActiveTab] = useState<BiotechTab>("anatomia");
+  const [activeTab, setActiveTab] = useState<BiotechTab>("faq");
   const [viewMode, setViewMode] = useState<"xray" | "exterior">("xray");
   const [selectedLayerId, setSelectedLayerId] = useState<string>("layer-3");
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq-1");
@@ -314,18 +314,6 @@ export function PacaBiotecnologia() {
       {/* 2 Big Prominent Tabs at the very top */}
       <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-[#EAE3D5] border border-[#DCD3C3] shadow-xs">
         <button
-          onClick={() => setActiveTab("anatomia")}
-          className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-black transition-all ${
-            activeTab === "anatomia"
-              ? "bg-[#2E4A32] text-white shadow-md shadow-[#2E4A32]/25 scale-[1.01]"
-              : "text-[#5C6B4A] hover:text-[#1D3320] hover:bg-white/50"
-          }`}
-        >
-          <Layers className="w-4 h-4 shrink-0" />
-          <span className="whitespace-nowrap">Anatomía del Cubo</span>
-        </button>
-
-        <button
           onClick={() => setActiveTab("faq")}
           className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-black transition-all ${
             activeTab === "faq"
@@ -335,6 +323,18 @@ export function PacaBiotecnologia() {
         >
           <HelpCircle className="w-4 h-4 shrink-0" />
           <span className="whitespace-nowrap">Mitos & Dudas</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("anatomia")}
+          className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-black transition-all ${
+            activeTab === "anatomia"
+              ? "bg-[#2E4A32] text-white shadow-md shadow-[#2E4A32]/25 scale-[1.01]"
+              : "text-[#5C6B4A] hover:text-[#1D3320] hover:bg-white/50"
+          }`}
+        >
+          <Layers className="w-4 h-4 shrink-0" />
+          <span className="whitespace-nowrap">Anatomía del Cubo</span>
         </button>
       </div>
 
