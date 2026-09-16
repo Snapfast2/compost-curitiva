@@ -3,16 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CleanHomeView } from "@/components/CleanHomeView";
-import { PacaRayosX } from "@/components/PacaRayosX";
+import { PacaBiotecnologia } from "@/components/PacaBiotecnologia";
 import { BucketChecker } from "@/components/BucketChecker";
 import { ParkMapCard } from "@/components/ParkMapCard";
 import { PrintablePosterModal } from "@/components/PrintablePosterModal";
 import { GuidedTourModal } from "@/components/GuidedTourModal";
 import { WhatsAppGroupsModal } from "@/components/WhatsAppGroupsModal";
-import { ArrowLeft, X, Compass, Home as HomeIcon, Layers, Apple, MessageCircle } from "lucide-react";
+import { ArrowLeft, X, Compass, Home as HomeIcon, Dna, Apple, MessageCircle } from "lucide-react";
 
 export default function Home() {
-  const [activeScreen, setActiveScreen] = useState<"home" | "rayos-x" | "balde" | "comunidad">("home");
+  const [activeScreen, setActiveScreen] = useState<"home" | "biotecnologia" | "balde" | "comunidad">("home");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [isTourOpen, setIsTourOpen] = useState(false);
@@ -56,7 +56,7 @@ export default function Home() {
             >
               <CleanHomeView
                 onOpenMap={() => setIsMapModalOpen(true)}
-                onOpenRayosX={() => setActiveScreen("rayos-x")}
+                onOpenRayosX={() => setActiveScreen("biotecnologia")}
                 onOpenBalde={() => setActiveScreen("balde")}
                 onOpenComunidad={() => setActiveScreen("comunidad")}
                 onOpenTour={() => setIsTourOpen(true)}
@@ -66,9 +66,9 @@ export default function Home() {
             </motion.div>
           )}
 
-          {activeScreen === "rayos-x" && (
+          {activeScreen === "biotecnologia" && (
             <motion.div
-              key="screen-rayos-x"
+              key="screen-biotecnologia"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
@@ -91,7 +91,7 @@ export default function Home() {
                   <span>Ver Tutorial QR</span>
                 </button>
               </div>
-              <PacaRayosX />
+              <PacaBiotecnologia />
             </motion.div>
           )}
 
@@ -160,7 +160,7 @@ export default function Home() {
         <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 px-2 py-1.5 rounded-full bg-[#27442A]/95 text-white backdrop-blur-md border border-[#3E6142] shadow-xl shadow-black/25 flex items-center gap-1 sm:gap-1.5">
           {[
             { id: "home" as const, label: "Inicio", icon: HomeIcon },
-            { id: "rayos-x" as const, label: "Rayos X", icon: Layers },
+            { id: "biotecnologia" as const, label: "Biotecnología", icon: Dna },
             { id: "balde" as const, label: "Mi Balde", icon: Apple },
           ].map((tab) => {
             const isActive = activeScreen === tab.id;
